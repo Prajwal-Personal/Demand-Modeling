@@ -6,125 +6,206 @@
   <title>POME: Student AI Subscription & Econometric Modeling Studio</title>
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <style>
-    /* Theme fallbacks for standalone browser opening while respecting Antigravity semantic variables */
+    /* Dedicated Crisp Light Theme Tokens */
     :root {
       --background: #f8fafc;
       --card: #ffffff;
       --foreground: #0f172a;
       --muted-foreground: #64748b;
       --border: #e2e8f0;
-      --primary: #2563eb;
-      --primary-foreground: #ffffff;
-      --secondary: #f1f5f9;
-      --accent: #3b82f6;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --background: #0b1120;
-        --card: #1e293b;
-        --foreground: #f8fafc;
-        --muted-foreground: #94a3b8;
-        --border: #334155;
-        --primary: #3b82f6;
-        --primary-foreground: #ffffff;
-        --secondary: #1e293b;
-        --accent: #60a5fa;
-      }
+      --primary-blue: #2563eb;
+      --primary-blue-hover: #1d4ed8;
+      --card-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
+      --card-hover: 0 12px 30px -4px rgba(37, 99, 235, 0.12), 0 4px 10px -2px rgba(15, 23, 42, 0.03);
     }
     body {
       background-color: var(--background);
       color: var(--foreground);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     }
-    .chart-tooltip {
-      position: absolute;
-      pointer-events: none;
-      background: rgba(15, 23, 42, 0.92);
-      color: #fff;
-      padding: 6px 10px;
-      border-radius: 6px;
-      font-size: 12px;
-      z-index: 50;
-      opacity: 0;
-      transition: opacity 0.15s ease;
-      white-space: nowrap;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    .light-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      box-shadow: var(--card-shadow);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    input[type=range] {
-      accent-color: var(--primary);
+    .light-card:hover {
+      box-shadow: var(--card-hover);
     }
-    .tab-btn.active {
-      border-bottom: 2px solid var(--primary);
-      color: var(--primary);
+    .pill-btn {
+      border-radius: 9999px;
       font-weight: 600;
+      letter-spacing: 0.025em;
+      transition: all 0.2s ease;
     }
+    .tab-active-blue {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.35) !important;
+    }
+    .blue-gradient-text {
+      background: linear-gradient(135deg, #2563eb 0%, #0284c7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Custom Light Theme Range Sliders (Eliminates Chrome/Edge native dark track bugs) */
+    input[type="range"].custom-slider {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 8px;
+      border-radius: 9999px;
+      outline: none;
+      cursor: pointer;
+      margin: 6px 0;
+      background: #e2e8f0;
+    }
+    input[type="range"].custom-slider:focus {
+      outline: none;
+    }
+    input[type="range"].custom-slider::-webkit-slider-runnable-track {
+      height: 8px;
+      border-radius: 9999px;
+      background: transparent;
+      border: none;
+    }
+    input[type="range"].custom-slider::-moz-range-track {
+      height: 8px;
+      border-radius: 9999px;
+      background: transparent;
+      border: none;
+    }
+    input[type="range"].custom-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 3px solid #ffffff;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.25);
+      cursor: pointer;
+      margin-top: -7px;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+    input[type="range"].custom-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.35);
+    }
+    input[type="range"].custom-slider::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 3px solid #ffffff;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.25);
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+    input[type="range"].custom-slider::-moz-range-thumb:hover {
+      transform: scale(1.15);
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.35);
+    }
+    .slider-purple::-webkit-slider-thumb { background-color: #7c3aed; }
+    .slider-purple::-moz-range-thumb { background-color: #7c3aed; }
+    .slider-emerald::-webkit-slider-thumb { background-color: #10b981; }
+    .slider-emerald::-moz-range-thumb { background-color: #10b981; }
+    .slider-rose::-webkit-slider-thumb { background-color: #f43f5e; }
+    .slider-rose::-moz-range-thumb { background-color: #f43f5e; }
+    .slider-sky::-webkit-slider-thumb { background-color: #0284c7; }
+    .slider-sky::-moz-range-thumb { background-color: #0284c7; }
+    .slider-amber::-webkit-slider-thumb { background-color: #f59e0b; }
+    .slider-amber::-moz-range-thumb { background-color: #f59e0b; }
+    .slider-blue::-webkit-slider-thumb { background-color: #2563eb; }
+    .slider-blue::-moz-range-thumb { background-color: #2563eb; }
   </style>
 </head>
-<body class="min-h-screen p-4 md:p-8 antialiased">
-  <div class="max-w-7xl mx-auto space-y-6">
+<body class="min-h-screen p-4 md:p-8 antialiased selection:bg-blue-500 selection:text-white bg-[#f8fafc]">
+  <div class="max-w-7xl mx-auto space-y-7">
 
-    <!-- Header Banner -->
-    <header class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
-      <div>
-        <div class="flex items-center gap-2">
-          <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-200">Econometric Modeling Studio</span>
-          <span class="text-xs text-[var(--muted-foreground)]">N = 500 Engineering Students</span>
+    <!-- Top Decorative Vibrant Blue Bar -->
+    <div class="h-1.5 w-full bg-gradient-to-r from-blue-600 via-sky-500 to-indigo-600 rounded-full shadow-sm"></div>
+
+    <!-- Light Hero Header -->
+    <header class="light-card p-6 md:p-8 relative overflow-hidden bg-white">
+      <div class="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-blue-100/60 blur-3xl pointer-events-none"></div>
+      
+      <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+        <div class="space-y-2">
+          <div class="flex items-center gap-2.5">
+            <span class="px-3 py-1 text-xs font-bold rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+              LIGHT THEME STUDIO
+            </span>
+            <span class="text-xs font-semibold text-slate-500">N = 500 Engineering Students • Econometric Lab</span>
+          </div>
+          <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900">
+            Student AI <span class="blue-gradient-text">Demand & Willingness-to-Pay</span> Modeling
+          </h1>
+          <p class="text-sm md:text-base text-slate-600 max-w-2xl leading-relaxed">
+            An interactive microeconomic simulator calibrated on empirical student survey data to explore price elasticity, consumer surplus, and subscription lifetime values.
+          </p>
         </div>
-        <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-[var(--foreground)] mt-1">Student AI Willingness-to-Pay & Demand Modeling</h1>
-        <p class="text-sm text-[var(--muted-foreground)] mt-1">
-          Interactive simulator and testing suite for microeconomic demand curves, discrete choice propensity, and lifetime value optimization.
-        </p>
-      </div>
-      <div class="flex items-center gap-3">
-        <div class="bg-[var(--secondary)] px-4 py-2 rounded-xl border border-[var(--border)] text-right">
-          <div class="text-xs text-[var(--muted-foreground)]">Empirical Median WTP</div>
-          <div class="text-lg font-bold text-emerald-600 dark:text-emerald-400">₹150.00 / mo</div>
-        </div>
-        <div class="bg-[var(--secondary)] px-4 py-2 rounded-xl border border-[var(--border)] text-right">
-          <div class="text-xs text-[var(--muted-foreground)]">Optimal Pricing Tier</div>
-          <div class="text-lg font-bold text-blue-600 dark:text-blue-400">₹199 - ₹249</div>
+
+        <!-- Quick Light Metric Blurbs -->
+        <div class="flex items-center gap-3 self-start lg:self-center">
+          <div class="p-4 px-5 rounded-2xl bg-slate-50 border border-slate-200 shadow-xs text-right">
+            <div class="text-xs font-semibold text-slate-600">Empirical Median WTP</div>
+            <div class="text-2xl font-black text-slate-900 mt-0.5">₹150.00 <span class="text-xs font-normal text-slate-500">/ mo</span></div>
+            <div class="text-[10px] text-slate-500 mt-0.5">Q18 Discrete Survival</div>
+          </div>
+          <div class="p-4 px-5 rounded-2xl bg-blue-50/80 border border-blue-200 shadow-xs text-right">
+            <div class="text-xs font-bold text-blue-700">Optimal Pricing Tier</div>
+            <div class="text-2xl font-black text-blue-900 mt-0.5">₹199 – ₹249</div>
+            <div class="text-[10px] text-blue-700/80 mt-0.5 font-medium">Peak Adoption & CLV</div>
+          </div>
         </div>
       </div>
     </header>
 
-    <!-- Navigation Tabs -->
-    <nav class="flex border-b border-[var(--border)] gap-6 text-sm text-[var(--muted-foreground)]">
-      <button onclick="switchTab('pricing')" id="tab-btn-pricing" class="tab-btn active pb-3 px-1 transition-colors hover:text-[var(--foreground)]">
-        📈 Pricing & Demand Curve Simulator
-      </button>
-      <button onclick="switchTab('student')" id="tab-btn-student" class="tab-btn pb-3 px-1 transition-colors hover:text-[var(--foreground)]">
-        🎯 Student Propensity Tester (Logit)
-      </button>
-      <button onclick="switchTab('clv')" id="tab-btn-clv" class="tab-btn pb-3 px-1 transition-colors hover:text-[var(--foreground)]">
-        💰 Lifetime Value & Retention
-      </button>
-      <button onclick="switchTab('batch')" id="tab-btn-batch" class="tab-btn pb-3 px-1 transition-colors hover:text-[var(--foreground)]">
-        👥 Archetype Presets & Custom Data
-      </button>
-      <button onclick="switchTab('findings')" id="tab-btn-findings" class="tab-btn pb-3 px-1 transition-colors hover:text-[var(--foreground)]">
-        📚 Mathematical Formulations & Stats
-      </button>
-    </nav>
+    <!-- Pill Navigation Tabs Bar -->
+    <div class="flex justify-center">
+      <nav class="bg-white p-1.5 rounded-full inline-flex border border-slate-200 shadow-sm max-w-full overflow-x-auto gap-1">
+        <button onclick="switchTab('pricing')" id="tab-btn-pricing" class="pill-btn tab-active-blue px-5 py-2.5 text-xs md:text-sm whitespace-nowrap text-slate-700 hover:text-blue-600">
+          Demand & Price Curve
+        </button>
+        <button onclick="switchTab('student')" id="tab-btn-student" class="pill-btn px-5 py-2.5 text-xs md:text-sm whitespace-nowrap text-slate-700 hover:text-blue-600">
+          Student Persona Constructor
+        </button>
+        <button onclick="switchTab('clv')" id="tab-btn-clv" class="pill-btn px-5 py-2.5 text-xs md:text-sm whitespace-nowrap text-slate-700 hover:text-blue-600">
+          Lifetime Value (CLV)
+        </button>
+        <button onclick="switchTab('batch')" id="tab-btn-batch" class="pill-btn px-5 py-2.5 text-xs md:text-sm whitespace-nowrap text-slate-700 hover:text-blue-600">
+          Archetypes & Batch Data
+        </button>
+        <button onclick="switchTab('findings')" id="tab-btn-findings" class="pill-btn px-5 py-2.5 text-xs md:text-sm whitespace-nowrap text-slate-700 hover:text-blue-600">
+          Econometric Formulas
+        </button>
+      </nav>
+    </div>
 
     <!-- TAB 1: PRICING & DEMAND SIMULATOR -->
     <section id="tab-pricing" class="space-y-6">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
-        <!-- Controls Column -->
-        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 shadow-sm space-y-6">
-          <div class="border-b border-[var(--border)] pb-3">
-            <h2 class="text-base font-semibold text-[var(--foreground)]">Interactive Pricing Controls</h2>
-            <p class="text-xs text-[var(--muted-foreground)]">Adjust price to observe market demand and revenue reactions</p>
+        <!-- Controls Light Card -->
+        <div class="light-card p-6 space-y-6">
+          <div class="border-b border-slate-100 pb-3 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-lg shadow-sm">₹</div>
+            <div>
+              <h2 class="text-base font-bold text-slate-900">Demand Sensitivity Controls</h2>
+              <p class="text-xs text-slate-500">Simulate student reaction to price shifts</p>
+            </div>
           </div>
 
           <!-- Price Slider -->
-          <div class="space-y-2">
+          <div class="space-y-2.5">
             <div class="flex justify-between items-center">
-              <label class="text-sm font-medium text-[var(--foreground)]">Monthly Subscription Price (P)</label>
-              <span id="price-display" class="px-2.5 py-1 text-sm font-bold bg-blue-50 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 rounded-lg">₹199</span>
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-500">Monthly Subscription Price</label>
+              <span id="price-display" class="px-3 py-1 text-sm font-extrabold bg-blue-600 text-white rounded-full shadow-sm">₹199</span>
             </div>
-            <input type="range" id="price-slider" min="50" max="800" step="10" value="199" class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg cursor-pointer" oninput="updatePricingModel()">
-            <div class="flex justify-between text-xs text-[var(--muted-foreground)]">
+            <input type="range" id="price-slider" min="50" max="800" step="10" value="199" class="custom-slider slider-blue w-full cursor-pointer" oninput="updatePricingModel(); updateSliderProgress(this)">
+            <div class="flex justify-between text-[11px] font-semibold text-slate-400">
               <span>₹50</span>
               <span>₹199</span>
               <span>₹399</span>
@@ -134,13 +215,13 @@
           </div>
 
           <!-- Batch Size Slider -->
-          <div class="space-y-2">
+          <div class="space-y-2.5">
             <div class="flex justify-between items-center">
-              <label class="text-sm font-medium text-[var(--foreground)]">Target Campus Student Population (N)</label>
-              <span id="pop-display" class="text-xs font-semibold text-[var(--foreground)]">5,000 students</span>
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-500">Campus Population (N)</label>
+              <span id="pop-display" class="text-xs font-bold px-2.5 py-0.5 rounded-md bg-slate-100 text-slate-800 border border-slate-200">5,000 students</span>
             </div>
-            <input type="range" id="pop-slider" min="500" max="25000" step="500" value="5000" class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg cursor-pointer" oninput="updatePricingModel()">
-            <div class="flex justify-between text-xs text-[var(--muted-foreground)]">
+            <input type="range" id="pop-slider" min="500" max="25000" step="500" value="5000" class="custom-slider slider-blue w-full cursor-pointer" oninput="updatePricingModel(); updateSliderProgress(this)">
+            <div class="flex justify-between text-[11px] font-semibold text-slate-400">
               <span>500</span>
               <span>5,000</span>
               <span>15,000</span>
@@ -150,98 +231,117 @@
 
           <!-- Conversion Model Selector -->
           <div class="space-y-2">
-            <label class="text-sm font-medium text-[var(--foreground)]">Conversion Intent Model</label>
-            <select id="model-select" class="w-full p-2.5 text-sm bg-[var(--background)] border border-[var(--border)] rounded-xl text-[var(--foreground)] focus:ring-2 focus:ring-blue-500" onchange="updatePricingModel()">
+            <label class="text-xs font-bold uppercase tracking-wider text-slate-500">Demand Conversion Model</label>
+            <select id="model-select" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl font-semibold text-slate-800 focus:ring-2 focus:ring-blue-500" onchange="updatePricingModel()">
               <option value="top2">Top-2 Box Intent (Definitely + Probably Yes, R² = 0.993)</option>
-              <option value="weighted">Weighted Intent (Juster Scale: 0.75 Def + 0.25 Prob, R² = 0.989)</option>
+              <option value="weighted">Standard Weighted (Juster Scale: 0.75 / 0.25, R² = 0.989)</option>
               <option value="wtp_surv">WTP Survival Function (Weibull S(P), R² = 0.931)</option>
             </select>
           </div>
 
-          <!-- Dynamic Output Metrics -->
-          <div class="bg-[var(--secondary)] rounded-xl p-4 border border-[var(--border)] space-y-3">
-            <div class="text-xs font-semibold uppercase tracking-wider text-[var(--muted-foreground)]">Model Projections</div>
+          <!-- Projections Box -->
+          <div class="p-4 rounded-2xl bg-blue-50/70 border border-blue-200/80 space-y-3">
+            <div class="text-[11px] font-bold uppercase tracking-wider text-blue-900">Live Econometric Forecast</div>
             <div class="flex justify-between items-baseline">
-              <span class="text-xs text-[var(--muted-foreground)]">Adoption Rate Q(P):</span>
-              <span id="metric-adoption" class="text-sm font-bold text-blue-600 dark:text-blue-400">60.5%</span>
+              <span class="text-xs text-slate-600">Market Adoption Q(P):</span>
+              <span id="metric-adoption" class="text-base font-extrabold text-blue-600">60.5%</span>
             </div>
             <div class="flex justify-between items-baseline">
-              <span class="text-xs text-[var(--muted-foreground)]">Total Active Subscribers:</span>
-              <span id="metric-subscribers" class="text-sm font-bold text-[var(--foreground)]">3,027</span>
+              <span class="text-xs text-slate-600">Active Paying Students:</span>
+              <span id="metric-subscribers" class="text-sm font-bold text-slate-900">3,027</span>
             </div>
             <div class="flex justify-between items-baseline">
-              <span class="text-xs text-[var(--muted-foreground)]">Expected Rev / Student / Mo:</span>
-              <span id="metric-rev-user" class="text-sm font-bold text-emerald-600 dark:text-emerald-400">₹120.40</span>
+              <span class="text-xs text-slate-600">Expected Rev / Student:</span>
+              <span id="metric-rev-user" class="text-sm font-bold text-emerald-600">₹120.40 / mo</span>
             </div>
             <div class="flex justify-between items-baseline">
-              <span class="text-xs text-[var(--muted-foreground)]">Total Monthly Campus ARR:</span>
-              <span id="metric-campus-rev" class="text-sm font-bold text-emerald-600 dark:text-emerald-400">₹6,02,373</span>
+              <span class="text-xs text-slate-600">Total Monthly Campus ARR:</span>
+              <span id="metric-campus-rev" class="text-sm font-bold text-emerald-600">₹6,02,373</span>
             </div>
-            <div class="flex justify-between items-baseline">
-              <span class="text-xs text-[var(--muted-foreground)]">Price Elasticity (Ed):</span>
-              <span id="metric-elasticity" class="px-2 py-0.5 rounded text-xs font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300">-0.177 (Inelastic)</span>
+            <div class="flex justify-between items-baseline pt-1 border-t border-blue-200/80">
+              <span class="text-xs text-slate-600">Price Elasticity (Ed):</span>
+              <span id="metric-elasticity" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">-0.177 (Inelastic)</span>
             </div>
           </div>
         </div>
 
-        <!-- Interactive Charts Column -->
-        <div class="lg:col-span-2 bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 shadow-sm space-y-6">
-          <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+        <!-- Visualizer Column (Distinct Royal Blue vs Vibrant Emerald Graph) -->
+        <div class="lg:col-span-2 light-card p-6 space-y-6">
+          <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-3">
             <div>
-              <h2 class="text-base font-semibold text-[var(--foreground)]">Empirical Demand & Expected Revenue Curves</h2>
-              <p class="text-xs text-[var(--muted-foreground)]">Interactive crosshairs trace price sensitivity across surveyed thresholds</p>
+              <h2 class="text-base font-bold text-slate-900">Empirical Demand Curve & Revenue Peak</h2>
+              <p class="text-xs text-slate-500">Interactive SVG chart with distinct high-contrast colors (Blue Demand vs Emerald Revenue)</p>
             </div>
-            <div class="flex items-center gap-4 text-xs">
-              <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-blue-600 inline-block"></span> Demand Q(P)</div>
-              <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span> Revenue R(P)</div>
-              <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full border-2 border-red-500 inline-block"></span> Current P</div>
+            <div class="flex items-center gap-4 text-xs font-bold">
+              <div class="flex items-center gap-1.5"><span class="w-3.5 h-3.5 rounded-full bg-blue-600 inline-block shadow-xs"></span> Demand Q(P)</div>
+              <div class="flex items-center gap-1.5"><span class="w-3.5 h-3.5 rounded-full bg-emerald-500 inline-block shadow-xs"></span> Revenue R(P)</div>
+              <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full border-2 border-rose-500 inline-block"></span> Selected Price</div>
             </div>
           </div>
 
-          <!-- SVG Chart Container -->
-          <div class="relative w-full h-80 bg-[var(--secondary)] rounded-xl border border-[var(--border)] p-2">
-            <svg id="demand-chart-svg" class="w-full h-full" viewBox="0 0 650 300"></svg>
-            <div id="chart-tooltip" class="chart-tooltip"></div>
+          <!-- SVG Chart Container: Crisp White with Clear Distinctions -->
+          <div class="relative w-full h-80 bg-white rounded-2xl border border-slate-200 p-2 shadow-xs">
+            <svg id="demand-chart-svg" class="w-full h-full" viewBox="0 0 650 300">
+              <defs>
+                <linearGradient id="lightDemandGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#2563eb" stop-opacity="0.22" />
+                  <stop offset="100%" stop-color="#2563eb" stop-opacity="0.0" />
+                </linearGradient>
+                <linearGradient id="lightRevGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#10b981" stop-opacity="0.20" />
+                  <stop offset="100%" stop-color="#10b981" stop-opacity="0.0" />
+                </linearGradient>
+              </defs>
+            </svg>
           </div>
 
-          <!-- Strategic Takeaway Box -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
-            <div class="p-3 rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900">
-              <span class="font-bold text-blue-900 dark:text-blue-200 block">Unit Elasticity (MR = 0)</span>
-              <span class="text-blue-800/80 dark:text-blue-300">Revenue maximizes at P* = ₹660 (Top-2) where percentage loss equals percentage price gain.</span>
+          <!-- 3-Column Feature Cards -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5 text-xs">
+            <div class="p-3.5 rounded-2xl bg-amber-50/80 border border-amber-200 shadow-xs">
+              <div class="w-6 h-6 rounded-lg bg-amber-500 text-white flex items-center justify-center font-bold text-[11px] mb-1.5 shadow-xs">1</div>
+              <span class="font-bold text-amber-950 block">Unit Elasticity (MR = 0)</span>
+              <span class="text-amber-800/80 leading-relaxed mt-0.5 block">Theoretical revenue peak occurs at P* = ₹660 where percentage volume loss equals percentage price gain.</span>
             </div>
-            <div class="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900">
-              <span class="font-bold text-emerald-900 dark:text-emerald-200 block">Campus Adoption Sweet Spot</span>
-              <span class="text-emerald-800/80 dark:text-emerald-300">At ₹199/mo, adoption remains >60% with low friction, creating network effects across peer groups.</span>
+            <div class="p-3.5 rounded-2xl bg-blue-50/80 border border-blue-200 shadow-xs">
+              <div class="w-6 h-6 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-[11px] mb-1.5 shadow-xs">2</div>
+              <span class="font-bold text-blue-950 block">Market Sweet Spot (₹199)</span>
+              <span class="text-blue-800/80 leading-relaxed mt-0.5 block">At ₹199, adoption remains high (>60%) with virtually frictionless peer adoption and viral propagation.</span>
             </div>
-            <div class="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900">
-              <span class="font-bold text-amber-900 dark:text-amber-200 block">WTP Budget Ceiling</span>
-              <span class="text-amber-800/80 dark:text-amber-300">Over 70% of students budget ≤₹300/mo. Pricing above ₹399 causes a steep drop in active users.</span>
+            <div class="p-3.5 rounded-2xl bg-emerald-50/80 border border-emerald-200 shadow-xs">
+              <div class="w-6 h-6 rounded-lg bg-emerald-500 text-white flex items-center justify-center font-bold text-[11px] mb-1.5 shadow-xs">3</div>
+              <span class="font-bold text-emerald-950 block">Campus Budget Ceiling</span>
+              <span class="text-emerald-800/80 leading-relaxed mt-0.5 block">Over 70% of students budget ≤₹300/mo. Pricing above ₹399 causes severe friction outside exam crunch weeks.</span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- TAB 2: STUDENT PROPENSITY TESTER (LOGISTIC REGRESSION) -->
+    <!-- TAB 2: STUDENT PERSONA CONSTRUCTOR (COLORFUL SLIDERS & FIXED GAUGE) -->
     <section id="tab-student" class="hidden space-y-6">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
-        <!-- Input Form -->
-        <div class="lg:col-span-2 bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 shadow-sm space-y-5">
-          <div class="border-b border-[var(--border)] pb-3 flex justify-between items-center">
-            <div>
-              <h2 class="text-base font-semibold text-[var(--foreground)]">Custom Student Profile Builder</h2>
-              <p class="text-xs text-[var(--muted-foreground)]">Input student behavioral variables to calculate payment likelihood via the econometric logit model</p>
+        <!-- Input Form with Individual Colorful Slider Cards -->
+        <div class="lg:col-span-2 light-card p-6 space-y-5">
+          <div class="border-b border-slate-100 pb-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 text-white flex items-center justify-center font-bold text-sm shadow-sm">SP</div>
+              <div>
+                <h2 class="text-base font-bold text-slate-900">Student Persona Constructor</h2>
+                <p class="text-xs text-slate-500">Fine-tune behavioral traits across vibrant colorful controls</p>
+              </div>
             </div>
-            <button onclick="resetStudentInputs()" class="text-xs text-blue-600 hover:underline">Reset Defaults</button>
+            <!-- Reset Button: Warm Amber Pill -->
+            <button onclick="resetStudentInputs()" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 transition-colors shadow-xs">
+              Reset Defaults
+            </button>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <!-- Academic Seniority -->
             <div class="space-y-1.5">
-              <label class="text-xs font-medium text-[var(--foreground)]">Academic Seniority</label>
-              <select id="stud-seniority" class="w-full p-2 text-xs bg-[var(--background)] border border-[var(--border)] rounded-lg text-[var(--foreground)]" onchange="calcStudentPropensity()">
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-500">Academic Seniority</label>
+              <select id="stud-seniority" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl font-semibold text-slate-800 focus:ring-2 focus:ring-blue-500" onchange="calcStudentPropensity()">
                 <option value="1">1st Year (Freshman)</option>
                 <option value="2">2nd Year (Sophomore)</option>
                 <option value="3" selected>3rd Year (Junior)</option>
@@ -251,31 +351,34 @@
 
             <!-- Engineering Branch -->
             <div class="space-y-1.5">
-              <label class="text-xs font-medium text-[var(--foreground)]">Engineering Branch</label>
-              <select id="stud-branch" class="w-full p-2 text-xs bg-[var(--background)] border border-[var(--border)] rounded-lg text-[var(--foreground)]" onchange="calcStudentPropensity()">
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-500">Engineering Branch</label>
+              <select id="stud-branch" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl font-semibold text-slate-800 focus:ring-2 focus:ring-blue-500" onchange="calcStudentPropensity()">
                 <option value="cs" selected>Computer Science & Engineering / AI / IT</option>
                 <option value="ece">Electronics & Communication / Electrical</option>
                 <option value="core">Mechanical / Civil / Biotech / Other Core</option>
               </select>
             </div>
 
-            <!-- Daily AI Hours (Significant Predictor) -->
-            <div class="space-y-1.5 md:col-span-2 bg-blue-50/50 dark:bg-blue-950/20 p-3 rounded-xl border border-blue-200 dark:border-blue-900/50">
+            <!-- Colorful Slider 1: Electric Violet (Key Significant Driver) -->
+            <div class="space-y-2 md:col-span-2 p-4 rounded-2xl bg-purple-50/80 border border-purple-200 shadow-xs">
               <div class="flex justify-between items-center">
-                <label class="text-xs font-bold text-blue-900 dark:text-blue-200 flex items-center gap-1.5">
-                  ⭐ Daily AI Usage Time (Hours / Day)
-                  <span class="text-[11px] font-normal px-1.5 py-0.2 bg-blue-200 dark:bg-blue-800 rounded text-blue-900 dark:text-blue-100">Key Driver: p = 0.0017</span>
+                <label class="text-xs font-extrabold text-purple-950 flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-purple-600 inline-block animate-pulse"></span>
+                  Daily AI Usage Time (Hours / Day)
+                  <span class="text-[10px] font-bold px-2.5 py-0.5 bg-purple-200 text-purple-900 rounded-full border border-purple-300">
+                    Statistically Significant: p = 0.0017
+                  </span>
                 </label>
-                <span id="stud-hours-val" class="text-xs font-bold text-blue-700 dark:text-blue-300">1.5 hours/day</span>
+                <span id="stud-hours-val" class="text-xs font-black text-purple-700 bg-white px-2 py-0.5 rounded-md border border-purple-200 shadow-xs">1.5 hours/day</span>
               </div>
-              <input type="range" id="stud-hours" min="0" max="3" step="0.25" value="1.5" class="w-full h-2 bg-blue-200 dark:bg-blue-800 rounded-lg cursor-pointer" oninput="document.getElementById('stud-hours-val').innerText = this.value + ' hours/day'; calcStudentPropensity()">
-              <p class="text-[11px] text-[var(--muted-foreground)]">Each 1-hour increase in daily AI workflow boosts subscription odds by 49.8% (OR = 1.498).</p>
+              <input type="range" id="stud-hours" min="0" max="3" step="0.25" value="1.5" class="custom-slider slider-purple w-full cursor-pointer" oninput="document.getElementById('stud-hours-val').innerText = this.value + ' hours/day'; updateSliderProgress(this); calcStudentPropensity()">
+              <p class="text-[11px] text-purple-900/80">Each +1 hour of daily AI workflow boosts subscription odds by 49.8% (Odds Ratio = 1.498, z = 3.134).</p>
             </div>
 
             <!-- Use Frequency -->
             <div class="space-y-1.5">
-              <label class="text-xs font-medium text-[var(--foreground)]">AI Use Frequency</label>
-              <select id="stud-freq" class="w-full p-2 text-xs bg-[var(--background)] border border-[var(--border)] rounded-lg text-[var(--foreground)]" onchange="calcStudentPropensity()">
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-500">AI Use Frequency</label>
+              <select id="stud-freq" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl font-semibold text-slate-800 focus:ring-2 focus:ring-blue-500" onchange="calcStudentPropensity()">
                 <option value="5" selected>Multiple times a day</option>
                 <option value="4">Once a day</option>
                 <option value="3">A few times a week</option>
@@ -286,88 +389,108 @@
 
             <!-- Primary Purpose -->
             <div class="space-y-1.5">
-              <label class="text-xs font-medium text-[var(--foreground)]">Primary Purpose</label>
-              <select id="stud-coding" class="w-full p-2 text-xs bg-[var(--background)] border border-[var(--border)] rounded-lg text-[var(--foreground)]" onchange="calcStudentPropensity()">
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-500">Primary Purpose</label>
+              <select id="stud-coding" class="w-full p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl font-semibold text-slate-800 focus:ring-2 focus:ring-blue-500" onchange="calcStudentPropensity()">
                 <option value="1" selected>Coding, Debugging & Software Dev</option>
                 <option value="0">Academic Learning, Research & Exams</option>
               </select>
             </div>
 
-            <!-- Perceived Usefulness (1 to 5) -->
-            <div class="space-y-1.5">
-              <div class="flex justify-between text-xs">
-                <label class="font-medium text-[var(--foreground)]">Perceived AI Usefulness</label>
-                <span id="stud-useful-val" class="font-bold">4 / 5</span>
+            <!-- Colorful Slider 2: Emerald Green (Perceived AI Usefulness) -->
+            <div class="p-3.5 rounded-2xl bg-emerald-50/70 border border-emerald-200 space-y-2">
+              <div class="flex justify-between text-xs font-bold">
+                <label class="text-emerald-950 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                  Perceived AI Usefulness
+                </label>
+                <span id="stud-useful-val" class="text-emerald-700 bg-white px-2 py-0.5 rounded border border-emerald-200 shadow-xs">4 / 5</span>
               </div>
-              <input type="range" id="stud-useful" min="1" max="5" step="1" value="4" class="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg" oninput="document.getElementById('stud-useful-val').innerText = this.value + ' / 5'; calcStudentPropensity()">
+              <input type="range" id="stud-useful" min="1" max="5" step="1" value="4" class="custom-slider slider-emerald w-full cursor-pointer" oninput="document.getElementById('stud-useful-val').innerText = this.value + ' / 5'; updateSliderProgress(this); calcStudentPropensity()">
             </div>
 
-            <!-- Free Limit Frustration (1 to 5) -->
-            <div class="space-y-1.5">
-              <div class="flex justify-between text-xs">
-                <label class="font-medium text-[var(--foreground)]">Free Limit Frustration</label>
-                <span id="stud-frust-val" class="font-bold">4 / 5</span>
+            <!-- Colorful Slider 3: Rose / Coral (Free Limit Frustration) -->
+            <div class="p-3.5 rounded-2xl bg-rose-50/70 border border-rose-200 space-y-2">
+              <div class="flex justify-between text-xs font-bold">
+                <label class="text-rose-950 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                  Free Limit Frustration
+                </label>
+                <span id="stud-frust-val" class="text-rose-700 bg-white px-2 py-0.5 rounded border border-rose-200 shadow-xs">4 / 5</span>
               </div>
-              <input type="range" id="stud-frust" min="1" max="5" step="1" value="4" class="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg" oninput="document.getElementById('stud-frust-val').innerText = this.value + ' / 5'; calcStudentPropensity()">
+              <input type="range" id="stud-frust" min="1" max="5" step="1" value="4" class="custom-slider slider-rose w-full cursor-pointer" oninput="document.getElementById('stud-frust-val').innerText = this.value + ' / 5'; updateSliderProgress(this); calcStudentPropensity()">
             </div>
 
-            <!-- AI Dependence (1 to 5) -->
-            <div class="space-y-1.5">
-              <div class="flex justify-between text-xs">
-                <label class="font-medium text-[var(--foreground)]">AI Task Dependence</label>
-                <span id="stud-depend-val" class="font-bold">3 / 5</span>
+            <!-- Colorful Slider 4: Royal Sky Blue (AI Task Dependence) -->
+            <div class="p-3.5 rounded-2xl bg-sky-50/70 border border-sky-200 space-y-2">
+              <div class="flex justify-between text-xs font-bold">
+                <label class="text-sky-950 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-sky-500"></span>
+                  AI Task Dependence
+                </label>
+                <span id="stud-depend-val" class="text-sky-700 bg-white px-2 py-0.5 rounded border border-sky-200 shadow-xs">3 / 5</span>
               </div>
-              <input type="range" id="stud-depend" min="1" max="5" step="1" value="3" class="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg" oninput="document.getElementById('stud-depend-val').innerText = this.value + ' / 5'; calcStudentPropensity()">
+              <input type="range" id="stud-depend" min="1" max="5" step="1" value="3" class="custom-slider slider-sky w-full cursor-pointer" oninput="document.getElementById('stud-depend-val').innerText = this.value + ' / 5'; updateSliderProgress(this); calcStudentPropensity()">
             </div>
 
-            <!-- Free Tool Failure Frequency (1 to 5) -->
-            <div class="space-y-1.5">
-              <div class="flex justify-between text-xs">
-                <label class="font-medium text-[var(--foreground)]">Free Tool Failure Frequency</label>
-                <span id="stud-fail-val" class="font-bold">3 / 5</span>
+            <!-- Colorful Slider 5: Warm Amber (Free Tool Failure Frequency) -->
+            <div class="p-3.5 rounded-2xl bg-amber-50/70 border border-amber-200 space-y-2">
+              <div class="flex justify-between text-xs font-bold">
+                <label class="text-amber-950 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                  Free Tool Failure Rate
+                </label>
+                <span id="stud-fail-val" class="text-amber-700 bg-white px-2 py-0.5 rounded border border-amber-200 shadow-xs">3 / 5</span>
               </div>
-              <input type="range" id="stud-fail" min="1" max="5" step="1" value="3" class="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg" oninput="document.getElementById('stud-fail-val').innerText = this.value + ' / 5'; calcStudentPropensity()">
+              <input type="range" id="stud-fail" min="1" max="5" step="1" value="3" class="custom-slider slider-amber w-full cursor-pointer" oninput="document.getElementById('stud-fail-val').innerText = this.value + ' / 5'; updateSliderProgress(this); calcStudentPropensity()">
             </div>
           </div>
         </div>
 
-        <!-- Propensity Output Card -->
-        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 shadow-sm flex flex-col justify-between space-y-5">
-          <div class="border-b border-[var(--border)] pb-3">
-            <h2 class="text-base font-semibold text-[var(--foreground)]">Subscription Propensity Score</h2>
-            <p class="text-xs text-[var(--muted-foreground)]">Model-estimated probability of subscribing</p>
+        <!-- Propensity Output Card (Fixed Bug: Clean White Fill with Multi-Hue Radial Stroke) -->
+        <div class="light-card p-6 flex flex-col justify-between space-y-5">
+          <div class="border-b border-slate-100 pb-3">
+            <h2 class="text-base font-bold text-slate-900">Conversion Propensity</h2>
+            <p class="text-xs text-slate-500">Model-estimated payment likelihood</p>
           </div>
 
-          <!-- Circular Gauge / Percentage Display -->
-          <div class="flex flex-col items-center justify-center py-4">
+          <!-- Fixed Circular Radial Meter (Pure Clean White Inner Center, No Black Fill) -->
+          <div class="flex flex-col items-center justify-center py-2">
             <div class="relative w-44 h-44 flex items-center justify-center">
               <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="8" class="text-slate-200 dark:text-slate-800 fill-none" />
-                <circle id="propensity-circle" cx="50" cy="50" r="40" stroke="currentColor" stroke-width="8" stroke-dasharray="251.2" stroke-dashoffset="100" stroke-linecap="round" class="text-blue-600 transition-all duration-300 fill-none" />
+                <!-- Outer background track -->
+                <circle cx="50" cy="50" r="40" stroke="#e2e8f0" stroke-width="8" fill="#ffffff" />
+                <!-- Dynamic Progress Ring with proper fill="none" -->
+                <circle id="propensity-circle" cx="50" cy="50" r="40" stroke="url(#lightRadialGrad)" stroke-width="8" stroke-dasharray="251.2" stroke-dashoffset="100" stroke-linecap="round" fill="none" class="transition-all duration-300" />
+                <defs>
+                  <linearGradient id="lightRadialGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#2563eb" />
+                    <stop offset="100%" stop-color="#10b981" />
+                  </linearGradient>
+                </defs>
               </svg>
-              <div class="absolute flex flex-col items-center text-center">
-                <span id="propensity-percent" class="text-3xl font-extrabold text-[var(--foreground)]">62.4%</span>
-                <span id="propensity-label" class="text-xs font-semibold px-2 py-0.5 mt-1 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300">High Propensity</span>
+              <div class="absolute flex flex-col items-center text-center pointer-events-none">
+                <span id="propensity-percent" class="text-4xl font-black text-slate-900">62.4%</span>
+                <span id="propensity-label" class="text-[11px] font-bold px-2.5 py-0.5 mt-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-xs">High Propensity</span>
               </div>
             </div>
-            <div class="text-xs text-center text-[var(--muted-foreground)] mt-2">
-              Logit Score (z): <span id="logit-z" class="font-mono font-bold text-[var(--foreground)]">+0.506</span>
+            <div class="text-xs text-center text-slate-500 mt-2 font-mono">
+              Logit Score (z): <span id="logit-z" class="font-bold text-slate-900">+0.506</span>
             </div>
           </div>
 
-          <!-- Breakdown Metrics -->
-          <div class="bg-[var(--secondary)] rounded-xl p-3.5 border border-[var(--border)] space-y-2 text-xs">
+          <!-- Metric Summary -->
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2 text-xs">
             <div class="flex justify-between">
-              <span class="text-[var(--muted-foreground)]">Implied Payment Odds:</span>
-              <span id="propensity-odds" class="font-bold text-[var(--foreground)]">1.66 to 1</span>
+              <span class="text-slate-500">Calculated Payment Odds:</span>
+              <span id="propensity-odds" class="font-extrabold text-slate-900">1.66 to 1</span>
             </div>
             <div class="flex justify-between">
-              <span class="text-[var(--muted-foreground)]">Target Persona:</span>
-              <span id="persona-tag" class="font-semibold text-blue-600 dark:text-blue-400">Junior Year Heavy Coder</span>
+              <span class="text-slate-500">Classified Persona:</span>
+              <span id="persona-tag" class="font-bold text-blue-600">Junior Year Heavy Coder</span>
             </div>
             <div class="flex justify-between">
-              <span class="text-[var(--muted-foreground)]">Recommended Tier:</span>
-              <span class="font-semibold text-emerald-600 dark:text-emerald-400">Student Pro (₹199/mo)</span>
+              <span class="text-slate-500">Suggested Subscription:</span>
+              <span class="font-bold text-emerald-600">Student Pro (₹199/mo)</span>
             </div>
           </div>
         </div>
@@ -379,61 +502,66 @@
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         <!-- CLV Assumptions -->
-        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 shadow-sm space-y-5">
-          <div class="border-b border-[var(--border)] pb-3">
-            <h2 class="text-base font-semibold text-[var(--foreground)]">CLV & Cost Architecture</h2>
-            <p class="text-xs text-[var(--muted-foreground)]">Configure marginal token costs and discount parameters</p>
+        <div class="light-card p-6 space-y-5">
+          <div class="border-b border-slate-100 pb-3 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-sm shadow-sm">CLV</div>
+            <div>
+              <h2 class="text-base font-bold text-slate-900">CLV & Retention Model</h2>
+              <p class="text-xs text-slate-500">Tune token costs, churn hazards & cost of capital</p>
+            </div>
           </div>
 
           <!-- Marginal Cost -->
           <div class="space-y-1.5">
-            <div class="flex justify-between text-xs">
-              <label class="font-medium text-[var(--foreground)]">Marginal Cost / Active User / Mo (c)</label>
-              <span id="cost-val" class="font-bold">₹40.00</span>
+            <div class="flex justify-between text-xs font-semibold">
+              <label class="text-slate-700">Marginal Token Cost / Mo (c)</label>
+              <span id="cost-val" class="font-bold text-blue-600">₹40.00</span>
             </div>
-            <input type="range" id="cost-slider" min="10" max="150" step="5" value="40" class="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg cursor-pointer" oninput="document.getElementById('cost-val').innerText = '₹' + this.value + '.00'; updateCLVModel()">
-            <p class="text-[11px] text-[var(--muted-foreground)]">Server compute, GPU inference tokens, and payment gateway fees.</p>
+            <input type="range" id="cost-slider" min="10" max="150" step="5" value="40" class="custom-slider slider-blue w-full cursor-pointer" oninput="document.getElementById('cost-val').innerText = '₹' + this.value + '.00'; updateSliderProgress(this); updateCLVModel()">
+            <p class="text-[11px] text-slate-500">Token API costs, inference hosting & gateway charges.</p>
           </div>
 
-          <!-- Monthly Cost of Capital (Discount Rate) -->
+          <!-- Monthly Discount Rate -->
           <div class="space-y-1.5">
-            <div class="flex justify-between text-xs">
-              <label class="font-medium text-[var(--foreground)]">Monthly Discount Rate (r)</label>
-              <span id="rate-val" class="font-bold">1.0% (~12.7% p.a.)</span>
+            <div class="flex justify-between text-xs font-semibold">
+              <label class="text-slate-700">Monthly Discount Rate (r)</label>
+              <span id="rate-val" class="font-bold text-blue-600">1.0% (~12.7% p.a.)</span>
             </div>
-            <input type="range" id="rate-slider" min="0.5" max="2.5" step="0.1" value="1.0" class="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg cursor-pointer" oninput="document.getElementById('rate-val').innerText = this.value + '%'; updateCLVModel()">
+            <input type="range" id="rate-slider" min="0.5" max="2.5" step="0.1" value="1.0" class="custom-slider slider-blue w-full cursor-pointer" oninput="document.getElementById('rate-val').innerText = this.value + '%'; updateSliderProgress(this); updateCLVModel()">
           </div>
 
           <!-- Base Churn Rate -->
           <div class="space-y-1.5">
-            <div class="flex justify-between text-xs">
-              <label class="font-medium text-[var(--foreground)]">Base Academic Churn Hazard (μ0)</label>
-              <span id="churn-val" class="font-bold">16.0% / month</span>
+            <div class="flex justify-between text-xs font-semibold">
+              <label class="text-slate-700">Base Academic Churn Hazard (μ0)</label>
+              <span id="churn-val" class="font-bold text-blue-600">16.0% / month</span>
             </div>
-            <input type="range" id="churn-slider" min="10" max="30" step="1" value="16" class="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg cursor-pointer" oninput="document.getElementById('churn-val').innerText = this.value + '%'; updateCLVModel()">
-            <p class="text-[11px] text-[var(--muted-foreground)]">Calibrated from Question 25 (average 3.3 months typical subscription tenure).</p>
+            <input type="range" id="churn-slider" min="10" max="30" step="1" value="16" class="custom-slider slider-blue w-full cursor-pointer" oninput="document.getElementById('churn-val').innerText = this.value + '%'; updateSliderProgress(this); updateCLVModel()">
+            <p class="text-[11px] text-slate-500">Derived from Q25 (3.30 months typical subscription cycle).</p>
           </div>
 
-          <!-- Dynamic Output Table -->
-          <div class="bg-[var(--secondary)] rounded-xl p-3.5 border border-[var(--border)] space-y-2 text-xs">
-            <div class="font-semibold text-[var(--foreground)]">Optimal Strategic Tradeoff</div>
-            <p class="text-[11px] text-[var(--muted-foreground)]">
-              While a high price of ₹499 yields maximum per-subscriber CLV (₹1,163), its lower adoption (44%) causes total campus CLV to peak near ₹499 and drop steeply thereafter. A sweet spot of ₹199–₹249 maximizes volume while yielding healthy ₹612–₹741 lifetime value.
+          <!-- Takeaway Box -->
+          <div class="p-4 rounded-2xl bg-blue-50/80 border border-blue-200 space-y-2 text-xs">
+            <div class="font-bold text-blue-950">The Pricing Sweet Spot</div>
+            <p class="text-[11px] text-slate-600 leading-relaxed">
+              While ₹499 maximizes gross revenue per individual payer (₹1,163 CLV), its higher churn reduces campus market coverage to 44%. Pricing at ₹199–₹249 maximizes adoption while delivering ₹612–₹741 lifetime value.
             </p>
           </div>
         </div>
 
-        <!-- Interactive CLV Chart -->
-        <div class="lg:col-span-2 bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 shadow-sm space-y-5">
+        <!-- Interactive CLV Chart & Table -->
+        <div class="lg:col-span-2 light-card p-6 space-y-5">
           <div class="flex justify-between items-center">
             <div>
-              <h2 class="text-base font-semibold text-[var(--foreground)]">Customer Lifetime Value Across Price Tiers</h2>
-              <p class="text-xs text-[var(--muted-foreground)]">Comparing per-subscriber CLV with market-wide expected value</p>
+              <h2 class="text-base font-bold text-slate-900">Customer Lifetime Value Across Price Tiers</h2>
+              <p class="text-xs text-slate-500">Comparing subscriber lifetime cash flow with campus-wide expected revenue</p>
             </div>
-            <span class="text-xs px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300 font-bold">Peak CLV: ₹499</span>
+            <span class="text-xs px-3 py-1 rounded-full bg-purple-100 text-purple-900 font-extrabold border border-purple-200">
+              Peak CLV: ₹499
+            </span>
           </div>
 
-          <div class="relative w-full h-80 bg-[var(--secondary)] rounded-xl border border-[var(--border)] p-2">
+          <div class="relative w-full h-80 bg-white rounded-2xl border border-slate-200 p-2 shadow-xs">
             <svg id="clv-chart-svg" class="w-full h-full" viewBox="0 0 650 300"></svg>
           </div>
 
@@ -441,16 +569,16 @@
           <div class="overflow-x-auto">
             <table class="w-full text-left text-xs border-collapse">
               <thead>
-                <tr class="border-b border-[var(--border)] text-[var(--muted-foreground)]">
-                  <th class="py-2 px-3">Price</th>
-                  <th class="py-2 px-3">Adoption Q(P)</th>
-                  <th class="py-2 px-3">Gross Margin</th>
-                  <th class="py-2 px-3">Expected Lifetime</th>
-                  <th class="py-2 px-3">Subscriber CLV</th>
-                  <th class="py-2 px-3">Expected Market CLV</th>
+                <tr class="border-b border-slate-200 text-slate-500 font-bold uppercase tracking-wider text-[10px]">
+                  <th class="py-2.5 px-3">Price</th>
+                  <th class="py-2.5 px-3">Adoption Q(P)</th>
+                  <th class="py-2.5 px-3">Gross Margin</th>
+                  <th class="py-2.5 px-3">Tenure</th>
+                  <th class="py-2.5 px-3">Subscriber CLV</th>
+                  <th class="py-2.5 px-3">Market Expected CLV</th>
                 </tr>
               </thead>
-              <tbody id="clv-table-body" class="divide-y divide-[var(--border)] text-[var(--foreground)]">
+              <tbody id="clv-table-body" class="divide-y divide-slate-100 text-slate-800 font-medium">
                 <!-- Dynamically Populated -->
               </tbody>
             </table>
@@ -463,42 +591,49 @@
     <section id="tab-batch" class="hidden space-y-6">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
-        <!-- Presets Column -->
-        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 shadow-sm space-y-4">
-          <div class="border-b border-[var(--border)] pb-3">
-            <h2 class="text-base font-semibold text-[var(--foreground)]">Archetype Quick-Load Presets</h2>
-            <p class="text-xs text-[var(--muted-foreground)]">Test representative student profiles with 1 click</p>
+        <!-- Smaller Preset Buttons with Multicolored High-Contrast Light Styling -->
+        <div class="light-card p-6 space-y-4">
+          <div class="border-b border-slate-100 pb-3 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-sm shadow-sm">QA</div>
+            <div>
+              <h2 class="text-base font-bold text-slate-900">Quick-Load Archetypes</h2>
+              <p class="text-xs text-slate-500">1-click test representative students</p>
+            </div>
           </div>
 
           <div class="space-y-2.5">
-            <button onclick="loadPreset('cs_power')" class="w-full text-left p-3 rounded-xl border border-[var(--border)] hover:border-blue-500 bg-[var(--background)] transition-all">
-              <div class="font-bold text-xs text-blue-600 dark:text-blue-400">🚀 3rd Year CS/AI Power Coder</div>
-              <div class="text-[11px] text-[var(--muted-foreground)] mt-0.5">2.5 hrs daily AI, Coding purpose, High frustration with limits.</div>
+            <!-- Archetype 1: Purple Accent -->
+            <button onclick="loadPreset('cs_power')" class="w-full text-left p-3.5 rounded-2xl border-2 border-purple-200 hover:border-purple-500 bg-purple-50/70 transition-all hover:shadow-xs">
+              <div class="font-extrabold text-xs text-purple-900">3rd Year CS/AI Power Coder</div>
+              <div class="text-[11px] text-purple-700/80 mt-0.5">2.5 hrs daily AI, Coding purpose, High limit frustration.</div>
             </button>
-            <button onclick="loadPreset('exam_cram')" class="w-full text-left p-3 rounded-xl border border-[var(--border)] hover:border-blue-500 bg-[var(--background)] transition-all">
-              <div class="font-bold text-xs text-emerald-600 dark:text-emerald-400">📚 2nd Year Exam Crammer</div>
-              <div class="text-[11px] text-[var(--muted-foreground)] mt-0.5">1.0 hr daily AI, Academic purpose, High perceived usefulness.</div>
+            <!-- Archetype 2: Warm Amber/Orange Accent -->
+            <button onclick="loadPreset('exam_cram')" class="w-full text-left p-3.5 rounded-2xl border-2 border-amber-200 hover:border-amber-500 bg-amber-50/70 transition-all hover:shadow-xs">
+              <div class="font-extrabold text-xs text-amber-900">2nd Year Exam Crammer</div>
+              <div class="text-[11px] text-amber-700/80 mt-0.5">1.0 hr daily AI, Academic purpose, High perceived usefulness.</div>
             </button>
-            <button onclick="loadPreset('placement')" class="w-full text-left p-3 rounded-xl border border-[var(--border)] hover:border-blue-500 bg-[var(--background)] transition-all">
-              <div class="font-bold text-xs text-purple-600 dark:text-purple-400">💼 4th Year Placement Seeker</div>
-              <div class="text-[11px] text-[var(--muted-foreground)] mt-0.5">2.0 hrs daily AI, High dependence, Interview & test prep.</div>
+            <!-- Archetype 3: Emerald Green Accent -->
+            <button onclick="loadPreset('placement')" class="w-full text-left p-3.5 rounded-2xl border-2 border-emerald-200 hover:border-emerald-500 bg-emerald-50/70 transition-all hover:shadow-xs">
+              <div class="font-extrabold text-xs text-emerald-900">4th Year Placement Seeker</div>
+              <div class="text-[11px] text-emerald-700/80 mt-0.5">2.0 hrs daily AI, High dependence, Technical preparation.</div>
             </button>
-            <button onclick="loadPreset('core_casual')" class="w-full text-left p-3 rounded-xl border border-[var(--border)] hover:border-blue-500 bg-[var(--background)] transition-all">
-              <div class="font-bold text-xs text-slate-600 dark:text-slate-400">🌱 1st Year Core Engineering Casual</div>
-              <div class="text-[11px] text-[var(--muted-foreground)] mt-0.5">0.25 hrs daily AI, General exploration, Low dependence.</div>
+            <!-- Archetype 4: Rose/Coral Accent -->
+            <button onclick="loadPreset('core_casual')" class="w-full text-left p-3.5 rounded-2xl border-2 border-rose-200 hover:border-rose-500 bg-rose-50/70 transition-all hover:shadow-xs">
+              <div class="font-extrabold text-xs text-rose-900">1st Year Core Engineering Casual</div>
+              <div class="text-[11px] text-rose-700/80 mt-0.5">0.25 hrs daily AI, General exploration, Low dependence.</div>
             </button>
           </div>
         </div>
 
         <!-- Custom Batch Input Area -->
-        <div class="lg:col-span-2 bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 shadow-sm space-y-4">
-          <div class="border-b border-[var(--border)] pb-3">
-            <h2 class="text-base font-semibold text-[var(--foreground)]">Batch Evaluation Engine (CSV / JSON)</h2>
-            <p class="text-xs text-[var(--muted-foreground)]">Paste custom rows or edit below to score multiple respondents simultaneously</p>
+        <div class="lg:col-span-2 light-card p-6 space-y-4">
+          <div class="border-b border-slate-100 pb-3">
+            <h2 class="text-base font-bold text-slate-900">Batch Evaluation Engine (CSV / Multi-Record)</h2>
+            <p class="text-xs text-slate-500">Score multiple prospective students simultaneously using the calibrated logit formula</p>
           </div>
 
           <div class="space-y-2">
-            <textarea id="batch-input" rows="7" class="w-full p-3 font-mono text-xs bg-[var(--background)] border border-[var(--border)] rounded-xl text-[var(--foreground)] focus:ring-2 focus:ring-blue-500" placeholder="Seniority,Branch,DailyHours,Usefulness,Frustration
+            <textarea id="batch-input" rows="7" class="w-full p-3 font-mono text-xs bg-slate-50 border border-slate-200 rounded-2xl text-slate-800 focus:ring-2 focus:ring-blue-500" placeholder="Seniority,Branch,DailyHours,Usefulness,Frustration
 3,CS,2.5,5,4
 2,ECE,0.75,4,3
 1,Core,0.25,3,2
@@ -506,26 +641,26 @@
           </div>
 
           <div class="flex justify-between items-center">
-            <button onclick="processBatch()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-semibold shadow-sm transition-colors">
-              ⚡ Score Batch Records
+            <button onclick="processBatch()" class="pill-btn px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-sm hover:shadow-md transition-all">
+              Run Batch Scoring
             </button>
-            <span id="batch-status" class="text-xs text-[var(--muted-foreground)]">4 sample records ready</span>
+            <span id="batch-status" class="text-xs font-bold text-emerald-700">4 records loaded</span>
           </div>
 
           <div class="overflow-x-auto max-h-60 overflow-y-auto">
             <table class="w-full text-left text-xs border-collapse">
               <thead>
-                <tr class="border-b border-[var(--border)] text-[var(--muted-foreground)]">
-                  <th class="py-2 px-2">#</th>
-                  <th class="py-2 px-2">Seniority</th>
-                  <th class="py-2 px-2">Branch</th>
-                  <th class="py-2 px-2">Daily Hours</th>
-                  <th class="py-2 px-2">Logit z</th>
-                  <th class="py-2 px-2">Pay Propensity</th>
-                  <th class="py-2 px-2">Status</th>
+                <tr class="border-b border-slate-200 text-slate-500 font-bold uppercase tracking-wider text-[10px]">
+                  <th class="py-2.5 px-2">#</th>
+                  <th class="py-2.5 px-2">Seniority</th>
+                  <th class="py-2.5 px-2">Branch</th>
+                  <th class="py-2.5 px-2">Daily Hours</th>
+                  <th class="py-2.5 px-2">Logit Score (z)</th>
+                  <th class="py-2.5 px-2">Propensity</th>
+                  <th class="py-2.5 px-2">Classification</th>
                 </tr>
               </thead>
-              <tbody id="batch-results-body" class="divide-y divide-[var(--border)] text-[var(--foreground)]">
+              <tbody id="batch-results-body" class="divide-y divide-slate-100 text-slate-800 font-medium">
                 <!-- Dynamically Filled -->
               </tbody>
             </table>
@@ -536,82 +671,110 @@
 
     <!-- TAB 5: MATHEMATICAL FORMULATIONS -->
     <section id="tab-findings" class="hidden space-y-6">
-      <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 shadow-sm space-y-6">
-        <div class="border-b border-[var(--border)] pb-3">
-          <h2 class="text-base font-semibold text-[var(--foreground)]">Mathematical Formulations & Model Estimations</h2>
-          <p class="text-xs text-[var(--muted-foreground)]">Rigorous equations, parameters, and statistical test outputs</p>
+      <div class="light-card p-6 md:p-8 space-y-6">
+        <div class="border-b border-slate-100 pb-3">
+          <h2 class="text-xl font-extrabold text-slate-900">Calibrated Mathematical Formulations</h2>
+          <p class="text-xs text-slate-500">Exact regression equations, empirical parameters, and goodness-of-fit statistics</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
-          <!-- Model 1 Card -->
-          <div class="p-4 rounded-xl bg-[var(--secondary)] border border-[var(--border)] space-y-2">
-            <div class="font-bold text-sm text-blue-600 dark:text-blue-400">1. Linear & Logistic Demand Models</div>
-            <div class="font-mono bg-[var(--background)] p-2 rounded border border-[var(--border)]">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs">
+          <div class="p-5 rounded-2xl bg-blue-50/80 border border-blue-200 space-y-2.5 shadow-xs">
+            <div class="font-extrabold text-sm text-blue-900">1. Linear & Logistic Demand Models</div>
+            <div class="font-mono bg-white p-3 rounded-xl border border-blue-200 text-[11px] leading-relaxed text-slate-800">
               Q_top2(P) = 0.7129 - 0.000540 * P  (R² = 0.9931)<br>
               Q_logit(P) = 1 / (1 + exp(-(0.8728 - 0.002211 * P))) (R² = 0.9943)
             </div>
-            <p class="text-[var(--muted-foreground)]">
+            <p class="text-slate-600">
               Revenue R(P) = P * Q(P) produces optimal unconstrained price P* = ₹660.46, where Point Elasticity Ed = -1.0.
             </p>
           </div>
 
-          <!-- Model 2 Card -->
-          <div class="p-4 rounded-xl bg-[var(--secondary)] border border-[var(--border)] space-y-2">
-            <div class="font-bold text-sm text-blue-600 dark:text-blue-400">2. Econometric Discrete Choice Model (Logit)</div>
-            <div class="font-mono bg-[var(--background)] p-2 rounded border border-[var(--border)]">
+          <div class="p-5 rounded-2xl bg-purple-50/80 border border-purple-200 space-y-2.5 shadow-xs">
+            <div class="font-extrabold text-sm text-purple-900">2. Econometric Discrete Choice Model (Logit)</div>
+            <div class="font-mono bg-white p-3 rounded-xl border border-purple-200 text-[11px] leading-relaxed text-slate-800">
               ln(p / (1-p)) = 0.0442 - 0.120*Seniority + 0.4041*Hours<br>
               + 0.068*Useful + 0.018*Frust - 0.034*Depend
             </div>
-            <p class="text-[var(--muted-foreground)]">
+            <p class="text-slate-600">
               Wald z = 3.134 for Daily Hours (p = 0.0017). Odds Ratio = exp(0.4041) = 1.498. ROC-AUC = 0.600.
             </p>
           </div>
 
-          <!-- Model 3 Card -->
-          <div class="p-4 rounded-xl bg-[var(--secondary)] border border-[var(--border)] space-y-2">
-            <div class="font-bold text-sm text-blue-600 dark:text-blue-400">3. WTP Parametric Survival Functions</div>
-            <div class="font-mono bg-[var(--background)] p-2 rounded border border-[var(--border)]">
+          <div class="p-5 rounded-2xl bg-amber-50/80 border border-amber-200 space-y-2.5 shadow-xs">
+            <div class="font-extrabold text-sm text-amber-900">3. WTP Parametric Survival Functions</div>
+            <div class="font-mono bg-white p-3 rounded-xl border border-amber-200 text-[11px] leading-relaxed text-slate-800">
               Weibull: S(P) = exp(-(P / 236.13)^0.9503)  (R² = 0.9312)<br>
               Log-Logistic: S(P) = 1 / (1 + (P / 134.38)^1.5573) (R² = 0.8669)
             </div>
-            <p class="text-[var(--muted-foreground)]">
+            <p class="text-slate-600">
               Median WTP = ₹150.00, Mean WTP = ₹235.90, Empirical Max Rev Price = ₹250.00 (49.6% penetration).
             </p>
           </div>
 
-          <!-- Model 4 Card -->
-          <div class="p-4 rounded-xl bg-[var(--secondary)] border border-[var(--border)] space-y-2">
-            <div class="font-bold text-sm text-blue-600 dark:text-blue-400">4. Customer Lifetime Value (CLV)</div>
-            <div class="font-mono bg-[var(--background)] p-2 rounded border border-[var(--border)]">
+          <div class="p-5 rounded-2xl bg-emerald-50/80 border border-emerald-200 space-y-2.5 shadow-xs">
+            <div class="font-extrabold text-sm text-emerald-900">4. Customer Lifetime Value (CLV)</div>
+            <div class="font-mono bg-white p-3 rounded-xl border border-emerald-200 text-[11px] leading-relaxed text-slate-800">
               CLV(P) = (P - c) / (μ(P) + r)<br>
               μ(P) = 0.16 + 0.00045 * P, c = ₹40, r = 0.01
             </div>
-            <p class="text-[var(--muted-foreground)]">
-              Expected subscriber duration scales from 4.9 months (₹99) to 2.3 months (₹599). Market CLV peaks at ₹499.
+            <p class="text-slate-600">
+              Expected subscriber duration scales from 4.89 months (₹99) to 2.33 months (₹599). Market CLV peaks at ₹499.
             </p>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- Footer -->
+    <footer class="text-center py-6 border-t border-slate-200 text-xs text-slate-500 flex flex-col items-center justify-center gap-1.5">
+      <div class="flex items-center gap-2">
+        <span class="font-bold text-blue-600">POME Research Project</span>
+        <span>•</span>
+        <span>Principles of Operations & Market Economics</span>
+      </div>
+      <p>Interactive Econometric Simulation Engine • Light Edition</p>
+    </footer>
+
   </div>
 
   <script>
-    // Tab Switching
+    function updateSliderProgress(slider) {
+      if (!slider) return;
+      const min = parseFloat(slider.min) !== undefined && !isNaN(parseFloat(slider.min)) ? parseFloat(slider.min) : 0;
+      const max = parseFloat(slider.max) !== undefined && !isNaN(parseFloat(slider.max)) ? parseFloat(slider.max) : 100;
+      const val = parseFloat(slider.value) !== undefined && !isNaN(parseFloat(slider.value)) ? parseFloat(slider.value) : min;
+      const pct = Math.max(0, Math.min(100, ((val - min) / (max - min)) * 100));
+
+      let activeColor = '#2563eb';
+      if (slider.classList.contains('slider-purple')) activeColor = '#7c3aed';
+      else if (slider.classList.contains('slider-emerald')) activeColor = '#10b981';
+      else if (slider.classList.contains('slider-rose')) activeColor = '#f43f5e';
+      else if (slider.classList.contains('slider-sky')) activeColor = '#0284c7';
+      else if (slider.classList.contains('slider-amber')) activeColor = '#f59e0b';
+      else if (slider.classList.contains('slider-blue')) activeColor = '#2563eb';
+
+      const emptyColor = '#e2e8f0'; // Clean neutral light gray slate-200 track (No dark artifacts!)
+      slider.style.background = `linear-gradient(to right, ${activeColor} 0%, ${activeColor} ${pct}%, ${emptyColor} ${pct}%, ${emptyColor} 100%)`;
+    }
+
+    function updateAllSliders() {
+      document.querySelectorAll('input[type="range"].custom-slider').forEach(s => updateSliderProgress(s));
+    }
+
     function switchTab(tabId) {
       ['pricing', 'student', 'clv', 'batch', 'findings'].forEach(t => {
         document.getElementById('tab-' + t).classList.add('hidden');
-        document.getElementById('tab-btn-' + t).classList.remove('active');
+        document.getElementById('tab-btn-' + t).classList.remove('tab-active-blue');
       });
       document.getElementById('tab-' + tabId).classList.remove('hidden');
-      document.getElementById('tab-btn-' + tabId).classList.add('active');
+      document.getElementById('tab-btn-' + tabId).classList.add('tab-active-blue');
+      updateAllSliders();
       if (tabId === 'pricing') updatePricingModel();
       if (tabId === 'student') calcStudentPropensity();
       if (tabId === 'clv') updateCLVModel();
       if (tabId === 'batch') processBatch();
     }
 
-    // TAB 1: PRICING MODEL LOGIC
     function updatePricingModel() {
       const p = parseFloat(document.getElementById('price-slider').value);
       const pop = parseFloat(document.getElementById('pop-slider').value);
@@ -620,7 +783,6 @@
       document.getElementById('price-display').innerText = '₹' + p;
       document.getElementById('pop-display').innerText = pop.toLocaleString() + ' students';
 
-      // Demand calculation
       let q = 0;
       let ed = 0;
       if (model === 'top2') {
@@ -629,7 +791,7 @@
       } else if (model === 'weighted') {
         q = Math.max(0, 0.3361 - 0.000188 * p);
         ed = -0.000188 * (p / Math.max(q, 0.01));
-      } else { // wtp_surv (Weibull)
+      } else {
         q = Math.exp(-Math.pow(p / 236.13, 0.9503));
         ed = -0.9503 * Math.pow(p / 236.13, 0.9503);
       }
@@ -640,19 +802,19 @@
 
       document.getElementById('metric-adoption').innerText = (q * 100).toFixed(1) + '%';
       document.getElementById('metric-subscribers').innerText = subs.toLocaleString();
-      document.getElementById('metric-rev-user').innerText = '₹' + revPerUser.toFixed(2);
+      document.getElementById('metric-rev-user').innerText = '₹' + revPerUser.toFixed(2) + ' / mo';
       document.getElementById('metric-campus-rev').innerText = '₹' + campusRev.toLocaleString();
 
       const elEl = document.getElementById('metric-elasticity');
       const absEd = Math.abs(ed);
       if (absEd < 0.9) {
-        elEl.className = 'px-2 py-0.5 rounded text-xs font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300';
+        elEl.className = 'px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200';
         elEl.innerText = ed.toFixed(3) + ' (Inelastic)';
       } else if (absEd <= 1.1) {
-        elEl.className = 'px-2 py-0.5 rounded text-xs font-bold bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-300';
+        elEl.className = 'px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-800 border border-blue-200';
         elEl.innerText = ed.toFixed(3) + ' (Unit Elastic)';
       } else {
-        elEl.className = 'px-2 py-0.5 rounded text-xs font-bold bg-rose-100 text-rose-800 dark:bg-rose-900/60 dark:text-rose-300';
+        elEl.className = 'px-3 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-800 border border-rose-200';
         elEl.innerText = ed.toFixed(3) + ' (Elastic)';
       }
 
@@ -666,11 +828,11 @@
       const chartW = w - padL - padR;
       const chartH = h - padT - padB;
 
-      // Price range: 50 to 800
       const pMin = 50, pMax = 800;
-      const maxRevVal = 260; // Max expected rev scale
+      const maxRevVal = 260;
 
       let pathD = '', pathR = '';
+      let areaD = '', areaR = '';
       const step = 10;
       for (let xP = pMin; xP <= pMax; xP += step) {
         let qVal = 0;
@@ -686,57 +848,80 @@
         if (xP === pMin) {
           pathD += `M ${xSvg.toFixed(1)} ${yD.toFixed(1)}`;
           pathR += `M ${xSvg.toFixed(1)} ${yR.toFixed(1)}`;
+          areaD += `M ${xSvg.toFixed(1)} ${padT + chartH} L ${xSvg.toFixed(1)} ${yD.toFixed(1)}`;
+          areaR += `M ${xSvg.toFixed(1)} ${padT + chartH} L ${xSvg.toFixed(1)} ${yR.toFixed(1)}`;
         } else {
           pathD += ` L ${xSvg.toFixed(1)} ${yD.toFixed(1)}`;
           pathR += ` L ${xSvg.toFixed(1)} ${yR.toFixed(1)}`;
+          areaD += ` L ${xSvg.toFixed(1)} ${yD.toFixed(1)}`;
+          areaR += ` L ${xSvg.toFixed(1)} ${yR.toFixed(1)}`;
         }
       }
+      const xEnd = padL + chartW;
+      areaD += ` L ${xEnd.toFixed(1)} ${padT + chartH} Z`;
+      areaR += ` L ${xEnd.toFixed(1)} ${padT + chartH} Z`;
 
       const curX = padL + ((curP - pMin) / (pMax - pMin)) * chartW;
       const curYD = padT + (1.0 - (curQ / 0.8)) * chartH;
       const curYR = padT + (1.0 - (curRev / maxRevVal)) * chartH;
 
       svg.innerHTML = `
-        <!-- Axes -->
-        <line x1="${padL}" y1="${padT + chartH}" x2="${padL + chartW}" y2="${padT + chartH}" stroke="#94a3b8" stroke-width="1.2" />
-        <line x1="${padL}" y1="${padT}" x2="${padL}" y2="${padT + chartH}" stroke="#94a3b8" stroke-width="1.2" />
-        <line x1="${padL + chartW}" y1="${padT}" x2="${padL + chartW}" y2="${padT + chartH}" stroke="#94a3b8" stroke-width="1.2" />
+        <defs>
+          <!-- Indigo Blue Gradient for Demand Curve -->
+          <linearGradient id="lightDemandGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#2563eb" stop-opacity="0.22" />
+            <stop offset="100%" stop-color="#2563eb" stop-opacity="0.0" />
+          </linearGradient>
+          <!-- Vibrant Emerald Green Gradient for Revenue Curve (High Contrast) -->
+          <linearGradient id="lightRevGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#10b981" stop-opacity="0.22" />
+            <stop offset="100%" stop-color="#10b981" stop-opacity="0.0" />
+          </linearGradient>
+        </defs>
 
-        <!-- Gridlines -->
-        <line x1="${padL}" y1="${padT + chartH/2}" x2="${padL + chartW}" y2="${padT + chartH/2}" stroke="#cbd5e1" stroke-dasharray="4,4" opacity="0.6" />
-        <line x1="${padL + chartW/2}" y1="${padT}" x2="${padL + chartW/2}" y2="${padT + chartH}" stroke="#cbd5e1" stroke-dasharray="4,4" opacity="0.6" />
+        <!-- Area Fills -->
+        <path d="${areaD}" fill="url(#lightDemandGrad)" />
+        <path d="${areaR}" fill="url(#lightRevGrad)" />
 
-        <!-- Axis Labels -->
-        <text x="${padL}" y="${padT + chartH + 25}" fill="#64748b" font-size="11" text-anchor="middle">₹50</text>
-        <text x="${padL + chartW * 0.2}" y="${padT + chartH + 25}" fill="#64748b" font-size="11" text-anchor="middle">₹200</text>
-        <text x="${padL + chartW * 0.467}" y="${padT + chartH + 25}" fill="#64748b" font-size="11" text-anchor="middle">₹400</text>
-        <text x="${padL + chartW * 0.733}" y="${padT + chartH + 25}" fill="#64748b" font-size="11" text-anchor="middle">₹600</text>
-        <text x="${padL + chartW}" y="${padT + chartH + 25}" fill="#64748b" font-size="11" text-anchor="middle">₹800</text>
+        <!-- Axes & Grid -->
+        <line x1="${padL}" y1="${padT + chartH}" x2="${padL + chartW}" y2="${padT + chartH}" stroke="#cbd5e1" stroke-width="1.2" />
+        <line x1="${padL}" y1="${padT}" x2="${padL}" y2="${padT + chartH}" stroke="#cbd5e1" stroke-width="1.2" />
+        <line x1="${padL + chartW}" y1="${padT}" x2="${padL + chartW}" y2="${padT + chartH}" stroke="#cbd5e1" stroke-width="1.2" />
 
+        <line x1="${padL}" y1="${padT + chartH/2}" x2="${padL + chartW}" y2="${padT + chartH/2}" stroke="#f1f5f9" stroke-dasharray="4,4" />
+        <line x1="${padL + chartW/2}" y1="${padT}" x2="${padL + chartW/2}" y2="${padT + chartH}" stroke="#f1f5f9" stroke-dasharray="4,4" />
+
+        <!-- Labels -->
+        <text x="${padL}" y="${padT + chartH + 25}" fill="#64748b" font-size="11" font-weight="600" text-anchor="middle">₹50</text>
+        <text x="${padL + chartW * 0.2}" y="${padT + chartH + 25}" fill="#64748b" font-size="11" font-weight="600" text-anchor="middle">₹200</text>
+        <text x="${padL + chartW * 0.467}" y="${padT + chartH + 25}" fill="#64748b" font-size="11" font-weight="600" text-anchor="middle">₹400</text>
+        <text x="${padL + chartW * 0.733}" y="${padT + chartH + 25}" fill="#64748b" font-size="11" font-weight="600" text-anchor="middle">₹600</text>
+        <text x="${padL + chartW}" y="${padT + chartH + 25}" fill="#64748b" font-size="11" font-weight="600" text-anchor="middle">₹800</text>
+
+        <!-- Left Axis (Demand - Royal Blue) -->
         <text x="${padL - 10}" y="${padT + 10}" fill="#2563eb" font-size="11" text-anchor="end" font-weight="bold">80%</text>
-        <text x="${padL - 10}" y="${padT + chartH/2}" fill="#2563eb" font-size="11" text-anchor="end">40%</text>
-        <text x="${padL - 10}" y="${padT + chartH}" fill="#2563eb" font-size="11" text-anchor="end">0%</text>
+        <text x="${padL - 10}" y="${padT + chartH/2}" fill="#2563eb" font-size="11" text-anchor="end" font-weight="semibold">40%</text>
+        <text x="${padL - 10}" y="${padT + chartH}" fill="#2563eb" font-size="11" text-anchor="end" font-weight="semibold">0%</text>
 
+        <!-- Right Axis (Revenue - Emerald Green) -->
         <text x="${padL + chartW + 10}" y="${padT + 10}" fill="#059669" font-size="11" text-anchor="start" font-weight="bold">₹260</text>
-        <text x="${padL + chartW + 10}" y="${padT + chartH/2}" fill="#059669" font-size="11" text-anchor="start">₹130</text>
-        <text x="${padL + chartW + 10}" y="${padT + chartH}" fill="#059669" font-size="11" text-anchor="start">₹0</text>
+        <text x="${padL + chartW + 10}" y="${padT + chartH/2}" fill="#059669" font-size="11" text-anchor="start" font-weight="semibold">₹130</text>
+        <text x="${padL + chartW + 10}" y="${padT + chartH}" fill="#059669" font-size="11" text-anchor="start" font-weight="semibold">₹0</text>
 
-        <!-- Curve Lines -->
-        <path d="${pathD}" fill="none" stroke="#2563eb" stroke-width="2.5" />
-        <path d="${pathR}" fill="none" stroke="#059669" stroke-width="2.5" />
+        <!-- Distinct Dynamic Curves: Royal Blue Demand vs Vibrant Emerald Green Revenue -->
+        <path d="${pathD}" fill="none" stroke="#2563eb" stroke-width="3.5" stroke-linecap="round" />
+        <path d="${pathR}" fill="none" stroke="#10b981" stroke-width="3.5" stroke-linecap="round" />
 
-        <!-- Current Price Crosshair -->
-        <line x1="${curX}" y1="${padT}" x2="${curX}" y2="${padT + chartH}" stroke="#ef4444" stroke-width="1.8" stroke-dasharray="3,3" />
-        <circle cx="${curX}" cy="${curYD}" r="5.5" fill="#2563eb" stroke="#ffffff" stroke-width="2" />
-        <circle cx="${curX}" cy="${curYR}" r="5.5" fill="#059669" stroke="#ffffff" stroke-width="2" />
+        <!-- Selected Crosshair & Tooltip: Crimson Accent -->
+        <line x1="${curX}" y1="${padT}" x2="${curX}" y2="${padT + chartH}" stroke="#f43f5e" stroke-width="2" stroke-dasharray="3,3" />
+        <circle cx="${curX}" cy="${curYD}" r="6.5" fill="#2563eb" stroke="#ffffff" stroke-width="2.5" />
+        <circle cx="${curX}" cy="${curYR}" r="6.5" fill="#10b981" stroke="#ffffff" stroke-width="2.5" />
 
-        <!-- Current Tag -->
-        <rect x="${curX - 45}" y="${padT - 22}" width="90" height="20" rx="4" fill="#ef4444" />
-        <text x="${curX}" y="${padT - 8}" fill="#ffffff" font-size="10" font-weight="bold" text-anchor="middle">Selected: ₹${curP}</text>
+        <rect x="${curX - 48}" y="${padT - 25}" width="96" height="22" rx="11" fill="#f43f5e" />
+        <text x="${curX}" y="${padT - 10}" fill="#ffffff" font-size="10" font-weight="bold" text-anchor="middle">Price: ₹${curP}</text>
       `;
     }
 
-    // TAB 2: STUDENT PROPENSITY (LOGIT)
     function calcStudentPropensity() {
       const sen = parseFloat(document.getElementById('stud-seniority').value);
       const branch = document.getElementById('stud-branch').value;
@@ -751,8 +936,6 @@
       const isCs = (branch === 'cs') ? 1 : 0;
       const isEce = (branch === 'ece') ? 1 : 0;
 
-      // Exact calibrated logistic regression equation:
-      // z = 0.04418 - 0.1201*sen - 0.0819*isCs - 0.0536*isEce + 0.0147*freq + 0.4041*hours + 0.0680*useful + 0.0180*frust - 0.0339*depend - 0.0024*fail - 0.2538*coding
       const z = (
         0.04418
         - 0.12013 * sen
@@ -775,27 +958,22 @@
       document.getElementById('logit-z').innerText = (z >= 0 ? '+' : '') + z.toFixed(3);
       document.getElementById('propensity-odds').innerText = odds.toFixed(2) + ' to 1';
 
-      // Update circular gauge (perimeter = 251.2)
       const offset = 251.2 * (1.0 - p);
       const circle = document.getElementById('propensity-circle');
       circle.style.strokeDashoffset = offset;
 
       const lbl = document.getElementById('propensity-label');
       if (p >= 0.60) {
-        lbl.className = 'text-xs font-semibold px-2 py-0.5 mt-1 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300';
+        lbl.className = 'text-[11px] font-bold px-2.5 py-0.5 mt-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200';
         lbl.innerText = 'High Propensity';
-        circle.setAttribute('class', 'text-emerald-500 transition-all duration-300 fill-none');
       } else if (p >= 0.45) {
-        lbl.className = 'text-xs font-semibold px-2 py-0.5 mt-1 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-300';
+        lbl.className = 'text-[11px] font-bold px-2.5 py-0.5 mt-1 rounded-full bg-blue-100 text-blue-800 border border-blue-200';
         lbl.innerText = 'Moderate Propensity';
-        circle.setAttribute('class', 'text-blue-600 transition-all duration-300 fill-none');
       } else {
-        lbl.className = 'text-xs font-semibold px-2 py-0.5 mt-1 rounded-full bg-slate-200 text-slate-800 dark:bg-slate-800 dark:text-slate-300';
-        lbl.innerText = 'Casual / Price-Sensitive';
-        circle.setAttribute('class', 'text-slate-400 transition-all duration-300 fill-none');
+        lbl.className = 'text-[11px] font-bold px-2.5 py-0.5 mt-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200';
+        lbl.innerText = 'Price-Sensitive Casual';
       }
 
-      // Persona Tag
       const pTag = document.getElementById('persona-tag');
       if (hours >= 2.0 && coding === 1) pTag.innerText = 'Power Coder / Dev';
       else if (useful >= 4 && hours >= 1.0) pTag.innerText = 'Regular Academic User';
@@ -818,10 +996,10 @@
       document.getElementById('stud-depend-val').innerText = "3 / 5";
       document.getElementById('stud-fail').value = "3";
       document.getElementById('stud-fail-val').innerText = "3 / 5";
+      updateAllSliders();
       calcStudentPropensity();
     }
 
-    // TAB 3: CLV MODEL LOGIC
     function updateCLVModel() {
       const c = parseFloat(document.getElementById('cost-slider').value);
       const r = parseFloat(document.getElementById('rate-slider').value) / 100.0;
@@ -841,16 +1019,15 @@
         rows.push({ p, qTop, margin, lifetimeMonths, subClv, mktClv });
       });
 
-      // Render table
       const tbody = document.getElementById('clv-table-body');
       tbody.innerHTML = rows.map(r => `
-        <tr class="hover:bg-[var(--secondary)] transition-colors">
-          <td class="py-2.5 px-3 font-bold">₹${r.p}</td>
+        <tr class="hover:bg-slate-50 transition-colors">
+          <td class="py-2.5 px-3 font-extrabold text-blue-700">₹${r.p}</td>
           <td class="py-2.5 px-3">${(r.qTop * 100).toFixed(1)}%</td>
           <td class="py-2.5 px-3">₹${r.margin.toFixed(0)}</td>
-          <td class="py-2.5 px-3">${r.lifetimeMonths.toFixed(2)} mo</td>
-          <td class="py-2.5 px-3 font-semibold text-blue-600 dark:text-blue-400">₹${r.subClv.toFixed(0)}</td>
-          <td class="py-2.5 px-3 font-bold text-emerald-600 dark:text-emerald-400">₹${r.mktClv.toFixed(0)}</td>
+          <td class="py-2.5 px-3 font-medium text-slate-600">${r.lifetimeMonths.toFixed(2)} mo</td>
+          <td class="py-2.5 px-3 font-extrabold text-blue-600">₹${r.subClv.toFixed(0)}</td>
+          <td class="py-2.5 px-3 font-extrabold text-emerald-600">₹${r.mktClv.toFixed(0)}</td>
         </tr>
       `).join('');
 
@@ -871,7 +1048,7 @@
       rows.forEach((r, idx) => {
         const xSvg = padL + ((r.p - pMin) / (pMax - pMin)) * chartW;
         const ySub = padT + (1.0 - (r.subClv / maxSubClv)) * chartH;
-        const yMkt = padT + (1.0 - ((r.mktClv * 2.2) / maxSubClv)) * chartH; // Scale mkt for visual overlay
+        const yMkt = padT + (1.0 - ((r.mktClv * 2.2) / maxSubClv)) * chartH;
 
         if (idx === 0) {
           pathSub += `M ${xSvg.toFixed(1)} ${ySub.toFixed(1)}`;
@@ -883,44 +1060,39 @@
       });
 
       svg.innerHTML = `
-        <line x1="${padL}" y1="${padT + chartH}" x2="${padL + chartW}" y2="${padT + chartH}" stroke="#94a3b8" stroke-width="1.2" />
-        <line x1="${padL}" y1="${padT}" x2="${padL}" y2="${padT + chartH}" stroke="#94a3b8" stroke-width="1.2" />
+        <line x1="${padL}" y1="${padT + chartH}" x2="${padL + chartW}" y2="${padT + chartH}" stroke="#cbd5e1" stroke-width="1.2" />
+        <line x1="${padL}" y1="${padT}" x2="${padL}" y2="${padT + chartH}" stroke="#cbd5e1" stroke-width="1.2" />
 
-        <!-- X ticks -->
         ${rows.map(r => {
           const xSvg = padL + ((r.p - pMin) / (pMax - pMin)) * chartW;
-          return `<text x="${xSvg}" y="${padT + chartH + 20}" fill="#64748b" font-size="10" text-anchor="middle">₹${r.p}</text>`;
+          return `<text x="${xSvg}" y="${padT + chartH + 20}" fill="#64748b" font-size="10" font-weight="600" text-anchor="middle">₹${r.p}</text>`;
         }).join('')}
 
-        <!-- Y ticks -->
-        <text x="${padL - 10}" y="${padT + 10}" fill="#2563eb" font-size="10" text-anchor="end font-weight="bold">₹1,400</text>
+        <text x="${padL - 10}" y="${padT + 10}" fill="#2563eb" font-size="10" text-anchor="end" font-weight="bold">₹1,400</text>
         <text x="${padL - 10}" y="${padT + chartH/2}" fill="#2563eb" font-size="10" text-anchor="end">₹700</text>
         <text x="${padL - 10}" y="${padT + chartH}" fill="#2563eb" font-size="10" text-anchor="end">₹0</text>
 
-        <!-- Paths -->
-        <path d="${pathSub}" fill="none" stroke="#2563eb" stroke-width="2.5" />
-        <path d="${pathMkt}" fill="none" stroke="#059669" stroke-width="2.5" />
+        <path d="${pathSub}" fill="none" stroke="#2563eb" stroke-width="3" stroke-linecap="round" />
+        <path d="${pathMkt}" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" />
 
         ${rows.map(r => {
           const xSvg = padL + ((r.p - pMin) / (pMax - pMin)) * chartW;
           const ySub = padT + (1.0 - (r.subClv / maxSubClv)) * chartH;
           const yMkt = padT + (1.0 - ((r.mktClv * 2.2) / maxSubClv)) * chartH;
           return `
-            <circle cx="${xSvg}" cy="${ySub}" r="4" fill="#2563eb" />
-            <circle cx="${xSvg}" cy="${yMkt}" r="4" fill="#059669" />
+            <circle cx="${xSvg}" cy="${ySub}" r="5" fill="#2563eb" stroke="#ffffff" stroke-width="2" />
+            <circle cx="${xSvg}" cy="${yMkt}" r="5" fill="#10b981" stroke="#ffffff" stroke-width="2" />
           `;
         }).join('')}
 
-        <!-- Legend -->
         <circle cx="${padL + 20}" cy="${padT + 15}" r="4" fill="#2563eb" />
-        <text x="${padL + 30}" y="${padT + 18}" font-size="11" fill="#2563eb" font-weight="semibold">Subscriber CLV (₹)</text>
+        <text x="${padL + 30}" y="${padT + 18}" font-size="11" fill="#2563eb" font-weight="bold">Subscriber CLV (₹)</text>
 
-        <circle cx="${padL + 180}" cy="${padT + 15}" r="4" fill="#059669" />
-        <text x="${padL + 190}" y="${padT + 18}" font-size="11" fill="#059669" font-weight="semibold">Market Expected CLV (scaled)</text>
+        <circle cx="${padL + 180}" cy="${padT + 15}" r="4" fill="#10b981" />
+        <text x="${padL + 190}" y="${padT + 18}" font-size="11" fill="#10b981" font-weight="bold">Market Expected CLV (scaled)</text>
       `;
     }
 
-    // TAB 4: PRESETS & BATCH EVALUATION
     function loadPreset(type) {
       if (type === 'cs_power') {
         document.getElementById('stud-seniority').value = "3";
@@ -935,6 +1107,8 @@
         document.getElementById('stud-frust-val').innerText = "5 / 5";
         document.getElementById('stud-depend').value = "4";
         document.getElementById('stud-depend-val').innerText = "4 / 5";
+        document.getElementById('stud-fail').value = "4";
+        document.getElementById('stud-fail-val').innerText = "4 / 5";
       } else if (type === 'exam_cram') {
         document.getElementById('stud-seniority').value = "2";
         document.getElementById('stud-branch').value = "ece";
@@ -946,6 +1120,10 @@
         document.getElementById('stud-useful-val').innerText = "4 / 5";
         document.getElementById('stud-frust').value = "4";
         document.getElementById('stud-frust-val').innerText = "4 / 5";
+        document.getElementById('stud-depend').value = "3";
+        document.getElementById('stud-depend-val').innerText = "3 / 5";
+        document.getElementById('stud-fail').value = "3";
+        document.getElementById('stud-fail-val').innerText = "3 / 5";
       } else if (type === 'placement') {
         document.getElementById('stud-seniority').value = "4";
         document.getElementById('stud-branch').value = "cs";
@@ -954,7 +1132,13 @@
         document.getElementById('stud-coding').value = "1";
         document.getElementById('stud-useful').value = "5";
         document.getElementById('stud-useful-val').innerText = "5 / 5";
-      } else { // core casual
+        document.getElementById('stud-frust').value = "4";
+        document.getElementById('stud-frust-val').innerText = "4 / 5";
+        document.getElementById('stud-depend').value = "4";
+        document.getElementById('stud-depend-val').innerText = "4 / 5";
+        document.getElementById('stud-fail').value = "4";
+        document.getElementById('stud-fail-val').innerText = "4 / 5";
+      } else {
         document.getElementById('stud-seniority').value = "1";
         document.getElementById('stud-branch').value = "core";
         document.getElementById('stud-hours').value = "0.25";
@@ -965,7 +1149,12 @@
         document.getElementById('stud-useful-val').innerText = "3 / 5";
         document.getElementById('stud-frust').value = "2";
         document.getElementById('stud-frust-val').innerText = "2 / 5";
+        document.getElementById('stud-depend').value = "2";
+        document.getElementById('stud-depend-val').innerText = "2 / 5";
+        document.getElementById('stud-fail').value = "2";
+        document.getElementById('stud-fail-val').innerText = "2 / 5";
       }
+      updateAllSliders();
       switchTab('student');
     }
 
@@ -973,15 +1162,11 @@
       const text = document.getElementById('batch-input').value.trim();
       const lines = text.split('\n');
       const results = [];
-      let headerPassed = false;
 
       lines.forEach((line, idx) => {
         const parts = line.split(',').map(s => s.trim());
         if (parts.length < 3) return;
-        if (isNaN(parseFloat(parts[0]))) {
-          headerPassed = true;
-          return;
-        }
+        if (isNaN(parseFloat(parts[0]))) return;
 
         const sen = parseFloat(parts[0]) || 2;
         const branchStr = parts[1].toLowerCase();
@@ -1013,15 +1198,15 @@
         const pct = (r.p * 100).toFixed(1) + '%';
         const isHigh = r.p >= 0.55;
         return `
-          <tr class="hover:bg-[var(--secondary)]">
-            <td class="py-2 px-2 font-mono">${r.id}</td>
-            <td class="py-2 px-2">Yr ${r.sen}</td>
-            <td class="py-2 px-2">${r.branch}</td>
-            <td class="py-2 px-2">${r.hours}h</td>
-            <td class="py-2 px-2 font-mono">${(r.z >= 0 ? '+' : '') + r.z.toFixed(2)}</td>
-            <td class="py-2 px-2 font-bold ${isHigh ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-500'}">${pct}</td>
-            <td class="py-2 px-2">
-              <span class="px-1.5 py-0.5 rounded text-[10px] font-bold ${isHigh ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300' : 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300'}">
+          <tr class="hover:bg-slate-50 transition-colors">
+            <td class="py-2.5 px-2 font-mono font-bold text-blue-600">${r.id}</td>
+            <td class="py-2.5 px-2">Yr ${r.sen}</td>
+            <td class="py-2.5 px-2 font-semibold text-slate-700">${r.branch}</td>
+            <td class="py-2.5 px-2 font-semibold text-slate-800">${r.hours}h</td>
+            <td class="py-2.5 px-2 font-mono text-slate-600">${(r.z >= 0 ? '+' : '') + r.z.toFixed(2)}</td>
+            <td class="py-2.5 px-2 font-extrabold ${isHigh ? 'text-blue-600' : 'text-slate-500'}">${pct}</td>
+            <td class="py-2.5 px-2">
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold ${isHigh ? 'bg-emerald-100 text-emerald-800 border border-emerald-200' : 'bg-slate-100 text-slate-600 border border-slate-200'}">
                 ${isHigh ? 'Likely Payer' : 'Casual User'}
               </span>
             </td>
@@ -1032,8 +1217,11 @@
       document.getElementById('batch-status').innerText = `${results.length} records evaluated`;
     }
 
-    // Initialize on page load
     window.onload = function() {
+      document.querySelectorAll('input[type="range"].custom-slider').forEach(s => {
+        s.addEventListener('input', () => updateSliderProgress(s));
+      });
+      updateAllSliders();
       updatePricingModel();
       calcStudentPropensity();
       updateCLVModel();
