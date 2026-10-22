@@ -1,0 +1,316 @@
+{
+  "demand_models": {
+    "Top2_Box": {
+      "Linear": {
+        "formula": "Q(P) = 0.7129 - 0.000540 * P",
+        "a": 0.7128501694915255,
+        "b": -0.0005396610169491526,
+        "R2": 0.9930880559726405,
+        "P_optimal": 660.4610552763819,
+        "Q_at_P_opt": 0.35642508474576273,
+        "Max_Expected_Rev_per_Student": 235.40488759816031,
+        "Elasticity_formula": "Ed(P) = -0.000540 * (P / Q(P))"
+      },
+      "Exponential": {
+        "formula": "Q(P) = 0.7444 * exp(-0.001065 * P)",
+        "a": 0.7443883017128525,
+        "b": 0.0010653121425696617,
+        "R2": 0.9774712690852413,
+        "P_optimal": 938.6920133923181,
+        "Q_at_P_opt": 0.2738451524486832,
+        "Max_Expected_Rev_per_Student": 257.0562575097807,
+        "Elasticity_formula": "Ed(P) = -0.001065 * P"
+      },
+      "Power_Constant_Elasticity": {
+        "formula": "Q(P) = 2.5019 * P^(-0.2797)",
+        "a": 2.5018578342841145,
+        "epsilon": 0.27969502591194034,
+        "R2": 0.8603966864624828,
+        "Price_Elasticity": -0.27969502591194034
+      },
+      "Logistic": {
+        "formula": "Q(P) = 1 / (1 + exp(-(0.8728 - 0.002211 * P)))",
+        "alpha": 0.8728346037863851,
+        "beta": -0.0022111399549500045,
+        "R2": 0.9942698615065814,
+        "P_optimal": 688.4758149899749,
+        "Q_at_P_opt": 0.343106326799886,
+        "Max_Expected_Rev_per_Student": 236.22040797176817
+      }
+    },
+    "Weighted": {
+      "Linear": {
+        "formula": "Q(P) = 0.3361 - 0.000188 * P",
+        "a": 0.3360778983050848,
+        "b": -0.00018820338983050846,
+        "R2": 0.988568669028393,
+        "P_optimal": 892.858249279539,
+        "Q_at_P_opt": 0.1680389491525424,
+        "Max_Expected_Rev_per_Student": 150.03496195111248,
+        "Elasticity_formula": "Ed(P) = -0.000188 * (P / Q(P))"
+      },
+      "Exponential": {
+        "formula": "Q(P) = 0.3429 * exp(-0.000708 * P)",
+        "a": 0.3428816072670139,
+        "b": 0.00070811795311664,
+        "R2": 0.9823146092887671,
+        "P_optimal": 1412.1941063613756,
+        "Q_at_P_opt": 0.12613909406935503,
+        "Max_Expected_Rev_per_Student": 178.13288522650632,
+        "Elasticity_formula": "Ed(P) = -0.000708 * P"
+      },
+      "Power_Constant_Elasticity": {
+        "formula": "Q(P) = 0.7697 * P^(-0.1864)",
+        "a": 0.7696694131407736,
+        "epsilon": 0.18641808572988355,
+        "R2": 0.8693496370147974,
+        "Price_Elasticity": -0.18641808572988355
+      },
+      "Logistic": {
+        "formula": "Q(P) = 1 / (1 + exp(-(-0.6640 - 0.000966 * P)))",
+        "alpha": -0.6639784730734428,
+        "beta": -0.0009656110853279217,
+        "R2": 0.9829822388212882,
+        "P_optimal": 1202.5446262961023,
+        "Q_at_P_opt": 0.13881480174092065,
+        "Max_Expected_Rev_per_Student": 166.93099388390294
+      }
+    }
+  },
+  "logistic_regression": {
+    "summary_table": {
+      "Intercept": {
+        "Coefficient": 0.04418209634639536,
+        "Std_Error": 0.6060164803350226,
+        "z_stat": 0.07290576705433865,
+        "p_value": 0.9418811047133159,
+        "Odds_Ratio": 1.0451726596836948,
+        "OR_95_CI_Lower": 0.31867344651579926,
+        "OR_95_CI_Upper": 3.427916258771593
+      },
+      "Seniority": {
+        "Coefficient": -0.12013142269451027,
+        "Std_Error": 0.08318189731457079,
+        "z_stat": -1.4442015218792936,
+        "p_value": 0.14868229694521348,
+        "Odds_Ratio": 0.8868038829026239,
+        "OR_95_CI_Lower": 0.7533955083385863,
+        "OR_95_CI_Upper": 1.0438356985501727
+      },
+      "Branch_CS_AI": {
+        "Coefficient": -0.08192568206470735,
+        "Std_Error": 0.24471371211701518,
+        "z_stat": -0.3347817388570887,
+        "p_value": 0.7377897367014274,
+        "Odds_Ratio": 0.9213404282703892,
+        "OR_95_CI_Lower": 0.5703210994842615,
+        "OR_95_CI_Upper": 1.488403963193877
+      },
+      "Branch_ECE_EEE": {
+        "Coefficient": -0.05356952240458452,
+        "Std_Error": 0.28415022201836176,
+        "z_stat": -0.18852535825617922,
+        "p_value": 0.8504648388894838,
+        "Odds_Ratio": 0.9478400425941991,
+        "OR_95_CI_Lower": 0.5430826700541824,
+        "OR_95_CI_Upper": 1.6542614888730314
+      },
+      "Q3_num": {
+        "Coefficient": 0.01469755544029726,
+        "Std_Error": 0.07113937183012618,
+        "z_stat": 0.2066022662583186,
+        "p_value": 0.8363204902333493,
+        "Odds_Ratio": 1.014806095614735,
+        "OR_95_CI_Lower": 0.8827325154945524,
+        "OR_95_CI_Upper": 1.16664039629248
+      },
+      "Q8_hours": {
+        "Coefficient": 0.40408185896622295,
+        "Std_Error": 0.12893947597412206,
+        "z_stat": 3.1338878641582313,
+        "p_value": 0.0017250676581935436,
+        "Odds_Ratio": 1.4979265606592884,
+        "OR_95_CI_Lower": 1.1634213804368037,
+        "OR_95_CI_Upper": 1.9286081714315255
+      },
+      "Q5_num": {
+        "Coefficient": 0.06802232974042473,
+        "Std_Error": 0.08268590398208418,
+        "z_stat": 0.822659322381761,
+        "p_value": 0.41070175355544514,
+        "Odds_Ratio": 1.0703892097251257,
+        "OR_95_CI_Lower": 0.910247203564281,
+        "OR_95_CI_Upper": 1.2587053888323956
+      },
+      "Q6_num": {
+        "Coefficient": 0.017979825025548967,
+        "Std_Error": 0.06745367943038003,
+        "z_stat": 0.26655069341482285,
+        "p_value": 0.7898151233071928,
+        "Odds_Ratio": 1.018142435184968,
+        "OR_95_CI_Lower": 0.8920554744194588,
+        "OR_95_CI_Upper": 1.1620510697487678
+      },
+      "Q9_num": {
+        "Coefficient": -0.03393965007709728,
+        "Std_Error": 0.0690035916238473,
+        "z_stat": -0.491853384416702,
+        "p_value": 0.6228229942621915,
+        "Odds_Ratio": 0.9666298389135083,
+        "OR_95_CI_Lower": 0.8443533554031122,
+        "OR_95_CI_Upper": 1.106614001707692
+      },
+      "Q11_num": {
+        "Coefficient": -0.0024052381978244925,
+        "Std_Error": 0.08363008374902481,
+        "z_stat": -0.02876044229541429,
+        "p_value": 0.9770556502939043,
+        "Odds_Ratio": 0.9975976520698445,
+        "OR_95_CI_Lower": 0.8467776018870276,
+        "OR_95_CI_Upper": 1.1752803489339825
+      },
+      "Coding_Purpose": {
+        "Coefficient": -0.25384531785561787,
+        "Std_Error": 0.217262462177873,
+        "z_stat": -1.1683809311145266,
+        "p_value": 0.24265314324541376,
+        "Odds_Ratio": 0.7758117969980952,
+        "OR_95_CI_Lower": 0.506783231085639,
+        "OR_95_CI_Upper": 1.1876556039000115
+      }
+    },
+    "metrics": {
+      "pseudo_r2": 0.02173641783891178,
+      "lr_chi2": 14.87661527611317,
+      "lr_pvalue": 0.13662541245825777,
+      "aic": 691.5330876640628,
+      "bic": 737.8937767467069,
+      "auc": 0.5997948250313463,
+      "accuracy": 0.598,
+      "precision": 0.6067708333333334,
+      "recall": 0.823321554770318,
+      "f1": 0.6986506746626686,
+      "confusion_matrix": {
+        "TN": 66,
+        "FP": 151,
+        "FN": 50,
+        "TP": 233
+      }
+    }
+  },
+  "wtp_survival": {
+    "empirical_stats": {
+      "mean": 235.9,
+      "median": 150.0,
+      "q25": 50.0,
+      "q75": 350.0,
+      "iqr": 300.0
+    },
+    "log_logistic_fit": {
+      "alpha_scale": 134.37613937858347,
+      "beta_shape": 1.557345359045239,
+      "r2": 0.8668674105238846,
+      "formula": "S(P) = 1 / (1 + (P / 134.38)^1.5573)"
+    },
+    "weibull_fit": {
+      "lambda_scale": 236.1322432765577,
+      "k_shape": 0.9502752058903563,
+      "r2": 0.9311906434342085,
+      "formula": "S(P) = exp(-(P / 236.13)^0.9503)"
+    },
+    "optimal_pricing_from_survival": {
+      "P_star": 250.0,
+      "Expected_Revenue": 124.0,
+      "Penetration_at_P_star": 0.496
+    }
+  },
+  "segmentation": {
+    "cs_vs_non_cs": {
+      "cs_n": 288,
+      "cs_mean_wtp": 235.06944444444446,
+      "cs_median_wtp": 200.0,
+      "non_cs_n": 212,
+      "non_cs_mean_wtp": 237.02830188679246,
+      "non_cs_median_wtp": 150.0,
+      "mwu_pvalue": 0.7633183016285938,
+      "t_pvalue": 0.915330554976274
+    },
+    "heavy_vs_occasional": {
+      "heavy_n": 279,
+      "heavy_mean_wtp": 232.61648745519713,
+      "occasional_n": 221,
+      "occasional_mean_wtp": 240.0452488687783,
+      "mwu_pvalue": 0.659592279795701
+    }
+  },
+  "clv_model": {
+    "marginal_cost": 40.0,
+    "discount_rate_monthly": 0.01,
+    "scenarios": [
+      {
+        "Price": 99.0,
+        "Conversion_Rate_Top2": 0.6594237288135594,
+        "Monthly_Gross_Margin": 59.0,
+        "Expected_Duration_Months": 4.888780249327793,
+        "Subscriber_CLV": 274.9941738522489,
+        "Expected_CLV_per_Student": 181.33768352365416
+      },
+      {
+        "Price": 149.0,
+        "Conversion_Rate_Top2": 0.6324406779661017,
+        "Monthly_Gross_Margin": 109.0,
+        "Expected_Duration_Months": 4.404316229905307,
+        "Subscriber_CLV": 459.81860367011177,
+        "Expected_CLV_per_Student": 290.8079894465517
+      },
+      {
+        "Price": 199.0,
+        "Conversion_Rate_Top2": 0.6054576271186441,
+        "Monthly_Gross_Margin": 159.0,
+        "Expected_Duration_Months": 4.007212983370066,
+        "Subscriber_CLV": 612.5987285686765,
+        "Expected_CLV_per_Student": 370.90257257508927
+      },
+      {
+        "Price": 249.0,
+        "Conversion_Rate_Top2": 0.5784745762711865,
+        "Monthly_Gross_Margin": 209.0,
+        "Expected_Duration_Months": 3.675794890645102,
+        "Subscriber_CLV": 741.0033681971281,
+        "Expected_CLV_per_Student": 428.65160943335565
+      },
+      {
+        "Price": 299.0,
+        "Conversion_Rate_Top2": 0.5514915254237288,
+        "Monthly_Gross_Margin": 259.0,
+        "Expected_Duration_Months": 3.395009336275675,
+        "Subscriber_CLV": 850.4350681333115,
+        "Expected_CLV_per_Student": 469.0077329986727
+      },
+      {
+        "Price": 399.0,
+        "Conversion_Rate_Top2": 0.4975254237288136,
+        "Monthly_Gross_Margin": 359.0,
+        "Expected_Duration_Months": 2.945074363127669,
+        "Subscriber_CLV": 1027.034758975826,
+        "Expected_CLV_per_Student": 510.9759036436678
+      },
+      {
+        "Price": 499.0,
+        "Conversion_Rate_Top2": 0.4435593220338983,
+        "Monthly_Gross_Margin": 459.0,
+        "Expected_Duration_Months": 2.600442075152776,
+        "Subscriber_CLV": 1163.3506526422507,
+        "Expected_CLV_per_Student": 516.0150267736898
+      },
+      {
+        "Price": 599.0,
+        "Conversion_Rate_Top2": 0.3895932203389831,
+        "Monthly_Gross_Margin": 559.0,
+        "Expected_Duration_Months": 2.3280176929344663,
+        "Subscriber_CLV": 1271.7552041860995,
+        "Expected_CLV_per_Student": 495.46720548172345
+      }
+    ]
+  }
+}
